@@ -1,13 +1,10 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express')
+var router = express.Router()
 
 /* GET users listing. */
-router.get('/users', function(req, res, next) {
-  var data = {
-    code: 0,
-    msg:"请求成功"
-  }
-  res.send(data.code);
-});
+router.get('/users', (req, res, next) => {
+  res.send('sucess')
+  next()
+})
 
-module.exports = router;
+module.exports = router

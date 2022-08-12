@@ -1,21 +1,19 @@
-<!--  -->
 <template>
-  <div>
-    {{test}}
-  </div>
+
+  <HelloWorld/>
 </template>
 
 <script>
+import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  data () {
-    return {
-      test: 6
-    }
+  name: 'App',
+  components: {
+    HelloWorld
   }
-
 }
-
 </script>
-<style lang='stylus' scoped>
+
+<style>
+
 </style>
