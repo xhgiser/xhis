@@ -19,9 +19,13 @@ const router = createRouter({
     {
       path: '/map',
       component: () => import('@/views/map/map.vue'),
-      meta: {
-        isAuth: true,
-      },
+      /**
+       * 未登录用户将被拦截
+       * 开发时先注释掉,上线运行需取消
+       */
+      // meta: {
+      //   isAuth: true,
+      // },
     },
   ],
 })

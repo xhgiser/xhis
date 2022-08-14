@@ -8,6 +8,9 @@ const bodyParser = require('body-parser')
 
 const app = express()
 
+var indexRouter = require('./routes/index')
+
+app.use('/', indexRouter)
 /**
  * 解析post请求的body数据
  */
