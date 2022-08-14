@@ -1,15 +1,18 @@
-var createError = require('http-errors')
-var express = require('express')
-var path = require('path')
-var cookieParser = require('cookie-parser')
-var logger = require('morgan')
+const createError = require('http-errors')
+const express = require('express')
+const path = require('path')
+const cookieParser = require('cookie-parser')
+const logger = require('morgan')
+const cors = require('cors')
+const bodyParser = require('body-parser')
 
-var indexRouter = require('./routes/index')
-var usersRouter = require('./routes/users')
+const app = express()
 
-var cors = require('cors')
-
-var app = express()
+/**
+ * 解析post请求的body数据
+ */
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extend: false }))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -22,24 +25,46 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
-//设置跨域访问
-// app.all('*', function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*"); //包含本域地址
-//   res.header("Access-Control-Allow-Headers", "X-PINGOTHER,Content-type,X-Requested-With,Authorization");
-//   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-//   res.header("X-Powered-By", ' 3.2.1')
-//   res.header("Content-Type", "application/json;charset=utf-8");
-//   next();
-// })
+/**
+ * 解析token校验是否正确|哪些接口需要token校验
+ */
+const { expressjwt: jwt } = require('express-jwt')
+const { jwtSecretKey } = require('./config/jwtSecretKey')
 
-app.use('/', indexRouter)
-app.use('/', usersRouter)
+app.use(
+  jwt({ secret: jwtSecretKey, algorithms: ['HS256'] }).unless({
+    path: ['/api/user/login', '/api/user/register'],
+  })
+)
+
+/**
+ * 调用路由
+ */
+//用户相关接口
+const userRouter = require('./routes/user')
+app.use('/api/user', userRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404))
 })
 
+//错误中间件
+const joi = require('joi')
+app.use(function (err, req, res, next) {
+  //joi 参数校验失败
+  if (err instanceof joi.ValidationError) {
+    return res.send({
+      status: 1,
+      message: err.message,
+    })
+  }
+  //未知错误
+  res.send({
+    status: 1,
+    message: err.message,
+  })
+})
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development

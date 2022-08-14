@@ -4,16 +4,21 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHashHistory(), //选择hash路由
   routes: [
-    /**
-     * 复制过来的,还没有配置
-     */
     {
       path: '/',
-      redirect: '/home',
+      redirect: '/login',
+    },
+    {
+      path: '/login',
+      component: () => import('@/views/user/login.vue'),
     },
     {
       path: '/home',
-      component: () => import('../views/home/home.vue'),
+      component: () => import('@/views/home/home.vue'),
+    },
+    {
+      path: '/map',
+      component: () => import('@/views/map/map.vue'),
       meta: {
         isAuth: true,
       },
@@ -27,7 +32,10 @@ router.beforeEach((to, from, next) => {
     if (localStorage.getItem('token')) {
       next()
     } else {
-      ElMessage.error('请先登录')
+      ElMessage({
+        message: '请先登录后访问',
+        type: 'warning',
+      })
     }
   } else {
     next()
