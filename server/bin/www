@@ -83,5 +83,5 @@ function onListening() {
   var addr = server.address()
   var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port
   debug('Listening on ' + bind)
-  console.log('服务启动在http://192.168.188.33:3000')
+  console.log('服务启动在http://localhost:3000')
 }

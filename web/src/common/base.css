@@ -25,3 +25,7 @@ a {
 li {
   list-style-type: none;
 }
+
+.el-carousel__container {
+  height: 100% !important;
+}

@@ -6,8 +6,8 @@ import axios from 'axios'
 const ENV = process.env.NODE_ENV
 const host =
   ENV === 'develepoment'
-    ? 'http://192.168.188.33:3000'
-    : 'http://192.168.188.33:3000'
+    ? 'http://192.168.188.8:3000'
+    : 'http://192.168.188.8:3000'
 const service = axios.create({
   baseURL: host,
   timeout: '3000',

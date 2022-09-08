@@ -13,7 +13,7 @@ exports.registerController = (req, res) => {
     return res.send({ code: 1, message: '用户名或者密码不能为空！' })
   }
   // 用户名查重的逻辑
-  const userSelectSql = 'select * from users where username=?'
+  const userSelectSql = 'select * from user where username=?'
   mysql.query(userSelectSql, userName, (err, results) => {
     if (err) {
       return res.send({ code: 1, message: err.message })
@@ -30,7 +30,7 @@ exports.registerController = (req, res) => {
 
     //用户信息插入数据库
     const userInsertSql =
-      'insert into users (username,password,name,user_createtime,user_department,user_type) value (?,?,?,NOW(),?,?)'
+      'insert into user (username,password,name,user_create_time,user_department,user_type) value (?,?,?,NOW(),?,?)'
     mysql.query(
       userInsertSql,
       [userName, passwordB, name, user_department, user_type],
@@ -54,7 +54,7 @@ exports.registerController = (req, res) => {
  */
 exports.loginController = (req, res) => {
   let { userName, password } = req.body
-  const userSelectSql = 'select * from users where username=?'
+  const userSelectSql = 'select * from user where username=?'
   mysql.query(userSelectSql, userName, (err, results) => {
     //错误日志返回
     if (err) {
