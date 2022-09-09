@@ -1,4 +1,4 @@
-<!-- 地质一张图 -->
+<!-- 灌区一张图 -->
 <template>
   <div id="map">
     <BaseControl></BaseControl>
@@ -20,7 +20,7 @@ const initMap = () => {
       new TileLayer({
         title: '天地图矢量图层',
         source: new XYZ({
-          url: 'http://t0.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=9893433c99cfb657e6ec3a92fe4068e5',
+          url: 'https://t0.tianditu.gov.cn/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=3b0fcd224a241196450e4b962944f51e',
           wrapX: false,
         }),
       }),
@@ -37,7 +37,7 @@ const initMap = () => {
           ratio: 1,
           url: 'http://192.168.188.8:8086/geoserver/xhis/wms',
           params: {
-            LAYERS: 'xhis:map_geology',
+            LAYERS: 'xhis:map_irrigation_dsy',
             STYLES: '',
             VERSION: '1.1.1',
             tiled: true,

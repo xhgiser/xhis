@@ -23,7 +23,7 @@ import Aside from '@/components/Layout/Aside.vue'
 const itemList = [
   { path: 'river-map', title: '水利一张图' },
   { path: 'water-map', title: '水务一张图' },
-  { path: 'irrigat-map', title: '灌区一张图' },
+  { path: 'irrigation-map', title: '灌区一张图' },
   { path: 'pipe-map', title: '管线一张图' },
   { path: 'plan-map', title: '规划一张图' },
   { path: 'geology-map', title: '地质一张图' },

@@ -30,8 +30,8 @@ const router = createRouter({
           component: () => import('@/views/map/water-map.vue'),
         },
         {
-          path: 'irrigat-map',
-          component: () => import('@/views/map/irrigat-map.vue'),
+          path: 'irrigation-map',
+          component: () => import('@/views/map/irrigation-map.vue'),
         },
         {
           path: 'pipe-map',

@@ -11,10 +11,7 @@ import { onMounted } from '@vue/runtime-core'
 import { Map, View } from 'ol'
 import { defaults as defaultControls } from 'ol/control.js'
 import TileLayer from 'ol/layer/Tile'
-import { XYZ } from 'ol/source'
-
-import { TileWMS } from 'ol/source'
-import OSM from 'ol/source/OSM'
+import { XYZ, TileWMS } from 'ol/source'
 
 const initMap = () => {
   const map = new Map({
@@ -40,7 +37,7 @@ const initMap = () => {
           ratio: 1,
           url: 'http://192.168.188.8:8086/geoserver/xhis/wms',
           params: {
-            LAYERS: 'xhis:dy',
+            LAYERS: 'xhis:map_river',
             STYLES: '',
             VERSION: '1.1.1',
             tiled: true,
