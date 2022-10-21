@@ -18,7 +18,7 @@ const initMap = () => {
     target: 'map',
     layers: [
       new TileLayer({
-        title: '天地图矢量图层',
+        title: '天地图影像图层',
         source: new XYZ({
           url: 'https://t0.tianditu.gov.cn/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=3b0fcd224a241196450e4b962944f51e',
           wrapX: false,

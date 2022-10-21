@@ -332,8 +332,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
+import { ref, inject } from 'vue'
+import TileLayer from 'ol/layer/Tile'
+import { XYZ, TileWMS } from 'ol/source'
 import {
   CopyDocument,
   Suitcase,
@@ -342,6 +343,10 @@ import {
   House,
   Connection,
 } from '@element-plus/icons-vue'
+
+// defineProps({
+//   map,
+// })
 
 const disabled = ref(false)
 
@@ -415,12 +420,19 @@ const unitOptions = [
 function selectChange() {}
 
 function reset() {
-  disabled = !disabled
-  let view = map.getView()
-  view.setZoom(zoom)
-  view.setRotation(rotation)
-  view.setCenter(center)
+  // disabled = !disabled   //报错,后面再改
+  const layer = new TileLayer({
+    title: '天地图影像图层',
+    source: new XYZ({
+      url: 'https://t0.tianditu.gov.cn/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=3b0fcd224a241196450e4b962944f51e',
+      wrapX: false,
+    }),
+  })
+
+  console.log(111)
 }
+
+defineExpose({ reset })
 </script>
 
 <style scoped>
