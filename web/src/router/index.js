@@ -19,12 +19,8 @@ const router = createRouter({
     {
       path: '/map',
       component: () => import('@/views/map/map.vue'),
-      redirect: '/map/river-map',
+      redirect: '/map/water-map',
       children: [
-        {
-          path: 'river-map',
-          component: () => import('@/views/map/river-map.vue'),
-        },
         {
           path: 'water-map',
           component: () => import('@/views/map/water-map.vue'),
