@@ -8,9 +8,10 @@
         <div class="block text-center">
           <el-carousel>
             <el-carousel-item v-for="(item, index) in homePic" :key="index">
-              <img
+              <el-image
                 :src="require(`@/assets/images/HomePic` + item.slice(1))"
                 class="homeimage"
+                fit="cover"
               />
             </el-carousel-item>
           </el-carousel>

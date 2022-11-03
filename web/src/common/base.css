@@ -3,6 +3,8 @@ body {
   padding: 0;
   margin: 0;
   background-color: #f5f5f5;
+  /* font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+  'Microsoft YaHei', '微软雅黑', Arial, sans-serif; */
 }
 html,
 body,
@@ -28,4 +30,25 @@ li {
 
 .el-carousel__container {
   height: 100% !important;
+}
+
+/* 替换el-popper默认padding */
+.el-popper{
+  padding: 5px !important;
+}
+
+/* 自定义openlayers地图组件 */
+/* 比例尺 */
+.ol-scale-bar{
+  bottom: 8px !important;
+}
+/* 鼠标坐标 */
+.ol-mouse-position{
+  top: 42px !important;
+  right: 8px !important;
+}
+/* 鹰眼 */
+.ol-overviewmap {
+  left: 8px;
+  bottom: 38px !important;
 }

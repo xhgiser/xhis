@@ -401,6 +401,11 @@ const router = createRouter({
       //   isAuth: true,
       // },
     },
+
+    {
+      path: '/test',
+      component: () => import('@/test/test.vue'),
+    },
   ],
 })
 
