@@ -36,11 +36,15 @@ li {
 .el-popper{
   padding: 5px !important;
 }
+/* el-message弹出位置下移 */
+.el-message {
+  top: 69px !important;
+}
 
 /* 自定义openlayers地图组件 */
 /* 比例尺 */
 .ol-scale-bar{
-  bottom: 8px !important;
+  bottom: 4px !important;
 }
 /* 鼠标坐标 */
 .ol-mouse-position{
@@ -50,5 +54,5 @@ li {
 /* 鹰眼 */
 .ol-overviewmap {
   left: 8px;
-  bottom: 38px !important;
+  bottom: 31px !important;
 }

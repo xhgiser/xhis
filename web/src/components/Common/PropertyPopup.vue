@@ -2,7 +2,17 @@
 <template>
   <div id="popup">
     <div id="rectangle">
-      <h3 class="table-title">{{ tableFeatureName }}</h3>
+      <div style="display: flex; align-items: center; margin: 10px, auto">
+        <h3 class="table-title" style="width: 300px">{{ tableFeatureName }}</h3>
+        <el-button
+          type="primary"
+          :icon="Close"
+          style="margin-left: 60px"
+          @click="closePopup"
+          text
+        />
+      </div>
+      <hr style="color: grey; opacity: 0.6" />
       <el-table
         :data="propertyTableData"
         stripe
@@ -19,6 +29,8 @@
 </template>
 
 <script setup>
+import { defineEmits } from 'vue'
+import { Close } from '@element-plus/icons-vue'
 defineProps({
   propertyTableData: {
     type: Array,
@@ -27,19 +39,25 @@ defineProps({
     type: String,
   },
 })
+
+const emit = defineEmits(['closePopup'])
+
+function closePopup() {
+  emit('closePopup')
+}
 </script>
 
 <style scoped>
 #popup {
   position: relative;
   transform: translate(-40px, 10px);
-  width: 350px;
+  width: 380px;
   height: auto;
 }
 
 #rectangle {
   position: relative;
-  width: 350px;
+  width: 380px;
   height: auto;
   min-height: 30px;
   max-height: 600px;
@@ -74,6 +92,7 @@ defineProps({
 }
 .table-title {
   font-family: 'Arial', 'Microsoft YaHei';
+  font-size: 20px;
   padding-left: 10px;
   color: #5e616d;
 }

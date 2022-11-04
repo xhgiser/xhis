@@ -1,376 +1,48 @@
 <!-- 水利一张图 -->
 <template>
   <div id="map">
-    <div class="upload" id="upload">
-      <div id="upload-kml">
-        <el-card class="upload-card">
-          <template #header>
-            <div class="card-header" style="display: flex; align-items: center">
-              <span>导入Google KML文件</span>
-              <el-button
-                type="primary"
-                :icon="Close"
-                style="margin-left: 205px"
-                @click="closeUpload"
-                text
-              />
-            </div>
-          </template>
-          <div class="el-input" style="margin-top: 10px; margin-bottom: 10px">
-            <div class="el-input__wrapper">
-              <input
-                type="file"
-                id="kml-file"
-                accept=".kml"
-                style="margin-left: -130px; margin-top: 28px; height: 50px"
-              />
-            </div>
-          </div>
-        </el-card>
-      </div>
-      <div id="upload-kmz">
-        <el-card class="upload-card">
-          <template #header>
-            <div class="card-header" style="display: flex; align-items: center">
-              <span>导入Google KMZ文件</span>
-              <el-button
-                type="primary"
-                :icon="Close"
-                style="margin-left: 203px"
-                @click="closeUpload"
-                text
-              />
-            </div>
-          </template>
-          <div class="el-input" style="margin-top: 10px; margin-bottom: 10px">
-            <div class="el-input__wrapper">
-              <input
-                type="file"
-                id="kmz-file"
-                accept=".kmz"
-                style="margin-left: -130px; margin-top: 28px; height: 50px"
-              />
-            </div>
-          </div>
-        </el-card>
-      </div>
-      <div id="upload-shp">
-        <el-card class="upload-card">
-          <template #header>
-            <div class="card-header" style="display: flex; align-items: center">
-              <span>导入ESRI Shapefile文件</span>
-              <el-button
-                type="primary"
-                :icon="Close"
-                style="margin-left: 191px"
-                @click="closeUpload"
-                text
-              />
-            </div>
-          </template>
-          <div class="el-input" style="margin-top: 10px; margin-bottom: 10px">
-            <div class="el-input__wrapper">
-              <input
-                type="file"
-                id="shp-file"
-                accept=".shp"
-                style="margin-left: -130px; margin-top: 28px; height: 50px"
-              />
-            </div>
-          </div>
-          <a style="font-size: 5px; font-style: italic"
-            >注:暂仅支持WGS84坐标系数据</a
-          >
-        </el-card>
-      </div>
-      <div id="upload-shp-zip">
-        <el-card class="upload-card">
-          <template #header>
-            <div class="card-header" style="display: flex; align-items: center">
-              <span>导入Shapefile.zip压缩文件</span>
-              <el-button
-                type="primary"
-                :icon="Close"
-                style="margin-left: 171px"
-                @click="closeUpload"
-                text
-              />
-            </div>
-          </template>
-          <div class="el-input" style="margin-top: 10px; margin-bottom: 10px">
-            <div class="el-input__wrapper">
-              <input
-                type="file"
-                id="shp-zip-file"
-                accept=".zip"
-                style="margin-left: -130px; margin-top: 28px; height: 50px"
-              />
-            </div>
-          </div>
-          <a style="font-size: 5px; font-style: italic"
-            >注:暂仅支持WGS84坐标系数据</a
-          >
-        </el-card>
-      </div>
-      <div id="upload-Geojson">
-        <el-card class="upload-card">
-          <template #header>
-            <div class="card-header" style="display: flex; align-items: center">
-              <span>导入GeoJSON文件</span>
-              <el-button
-                type="primary"
-                :icon="Close"
-                style="margin-left: 227px"
-                @click="closeUpload"
-                text
-              />
-            </div>
-          </template>
-          <div class="el-input" style="margin-top: 10px; margin-bottom: 10px">
-            <div class="el-input__wrapper">
-              <input
-                type="file"
-                id="geojson-file"
-                accept=".json,.geojson"
-                style="margin-left: -130px; margin-top: 28px; height: 50px"
-              />
-            </div>
-          </div>
-        </el-card>
-      </div>
-    </div>
-
-    <div class="left-card">
-      <div class="toggle-button">
-        <el-card shadow="always">
-          <el-button
-            type="info"
-            size="large"
-            class="toggle-button-select"
-            :icon="CopyDocument"
-            :bg="selecttc"
-            @click="clicktc"
-            text
-            >图层</el-button
-          >
-          <el-button
-            type="info"
-            size="large"
-            class="toggle-button-select"
-            :icon="EditPen"
-            :bg="selectbh"
-            @click="clickbh"
-            text
-            >标绘</el-button
-          >
-        </el-card>
-      </div>
-      <div id="layer-card">
-        <el-card shadow="always">
-          <div class="layer-search">
-            <el-input
-              v-model="input"
-              placeholder="过滤图层关键字"
-              class="input-with-select"
-              clearable
-            >
-              <template #append>
-                <el-button :icon="Search" />
-              </template>
-            </el-input>
-          </div>
-          <el-tree
-            :data="layersData"
-            show-checkbox
-            node-key="id"
-            :default-expanded-keys="[1, 2, 3, 4, 16, 19]"
-            :default-checked-keys="[]"
-            :props="defaultProps"
-            @check-change="layerTreeClick"
-          />
-        </el-card>
-      </div>
-      <div id="draw-card">
-        <el-card shadow="always">
-          <el-radio-group v-model="drawRadio" size="large">
-            <el-radio-button label="点标绘" />
-            <el-radio-button label="线标绘" />
-            <el-radio-button label="面标绘" />
-          </el-radio-group>
-        </el-card>
-      </div>
-    </div>
-    <div class="map-tool">
-      <el-button-group>
-        <el-popover placement="bottom" trigger="click">
-          <template #reference>
-            <el-button type="default" :icon="Upload">导出</el-button>
-          </template>
-          <div class="map-tool-item">
-            <el-button type="default" text>导出JPEG</el-button><br />
-            <el-button type="default" text>导出PDF</el-button><br />
-            <el-button type="default" text>绘制导出KML</el-button><br />
-            <el-button type="default" text>导出GeoJSON</el-button><br />
-          </div>
-        </el-popover>
-
-        <el-popover placement="bottom" trigger="click">
-          <template #reference>
-            <el-button type="default" :icon="Download">导入</el-button>
-          </template>
-          <div class="map-tool-item">
-            <el-button type="default" text @click="uploadKml"
-              >导入Google KML</el-button
-            ><br />
-            <el-button type="default" text @click="uploadKmz"
-              >导入Google KMZ</el-button
-            ><br />
-            <el-button type="default" text @click="uploadShp"
-              >导入ESRI Shapefile</el-button
-            ><br />
-            <el-button type="default" text @click="uploadShpZip"
-              >导入Shapefile.zip</el-button
-            ><br />
-            <el-button type="default" text @click="uploadGeojson"
-              >导入GeoJSON</el-button
-            ><br />
-            <!-- <el-button type="default" text>导入CSV</el-button><br /> -->
-          </div>
-        </el-popover>
-
-        <el-popover placement="bottom" trigger="click">
-          <template #reference>
-            <el-button type="default" :icon="Coordinate">测量</el-button>
-          </template>
-          <div class="map-tool-item">
-            <!-- <el-button type="default" @click="coordinateMeasure" text
-              >鼠标坐标测量</el-button
-            ><br /> -->
-            <el-button type="default" @click="lineMeasure()" text
-              >距离测量</el-button
-            ><br />
-            <el-button type="default" @click="areaMeasure()" text
-              >面积测量</el-button
-            ><br />
-            <el-button type="default" @click="stopMeasure()" text
-              >停止测量</el-button
-            ><br />
-          </div>
-        </el-popover>
-
-        <el-tooltip content="清屏" placement="bottom" effect="light"
-          ><el-button type="default" :icon="Brush" @click="clear"></el-button
-        ></el-tooltip>
-
-        <el-tooltip content="旋转" placement="bottom" effect="light"
-          ><el-button
-            type="default"
-            :icon="RefreshRight"
-            @click="rotate"
-          ></el-button
-        ></el-tooltip>
-
-        <el-tooltip content="放大" placement="bottom" effect="light"
-          ><el-button type="default" :icon="ZoomIn" @click="zoomIn"></el-button
-        ></el-tooltip>
-
-        <el-tooltip content="缩小" placement="bottom" effect="light"
-          ><el-button
-            type="default"
-            :icon="ZoomOut"
-            @click="zoomOut"
-          ></el-button
-        ></el-tooltip>
-
-        <el-tooltip content="定位" placement="bottom" effect="light"
-          ><el-button
-            type="default"
-            :icon="Location"
-            @click="locate"
-          ></el-button
-        ></el-tooltip>
-
-        <el-tooltip content="默认视图" placement="bottom" effect="light"
-          ><el-button type="default" :icon="House" @click="reset"></el-button
-        ></el-tooltip>
-      </el-button-group>
-    </div>
-    <div class="basemap-toggle">
-      <el-popover placement="left" :width="350" trigger="click">
-        <template #reference>
-          <el-card shadow="always">
-            <el-image
-              style="width: 80px; height: 80px"
-              :src="require(`@/assets/images/MapLogo/${basemapImage}.jpg`)"
-              fit="cover"
-            />
-            <h6>{{ basemapImage }}</h6>
-          </el-card>
-        </template>
-        <div class="basemap-toggle-row">
-          <el-row :gutter="2">
-            <el-col :span="6" @click="basemapToggle(1)"
-              ><div class="grid-content ep-bg-purple" />
-              <el-image
-                style="
-                  width: 80px;
-                  height: 80px;
-                  border-radius: 2px;
-                  cursor: pointer;
-                "
-                :src="require(`@/assets/images/MapLogo/天地图矢量.jpg`)"
-              />
-              <h6 style="cursor: pointer">天地图矢量</h6>
-            </el-col>
-            <el-col :span="6" @click="basemapToggle(2)"
-              ><div class="grid-content ep-bg-purple" />
-              <el-image
-                style="
-                  width: 80px;
-                  height: 80px;
-                  border-radius: 2px;
-                  cursor: pointer;
-                "
-                :src="require(`@/assets/images/MapLogo/天地图影像.jpg`)"
-                fit="cover"
-              />
-              <h6 style="cursor: pointer">天地图影像</h6>
-            </el-col>
-            <el-col :span="6" @click="basemapToggle(3)"
-              ><div class="grid-content ep-bg-purple" />
-              <el-image
-                style="
-                  width: 80px;
-                  height: 80px;
-                  border-radius: 2px;
-                  cursor: pointer;
-                "
-                :src="require(`@/assets/images/MapLogo/天地图地形.jpg`)"
-                fit="cover"
-              />
-              <h6 style="cursor: pointer">天地图地形</h6>
-            </el-col>
-            <el-col :span="6" @click="basemapToggle(4)"
-              ><div class="grid-content ep-bg-purple" />
-              <el-image
-                style="
-                  width: 80px;
-                  height: 80px;
-                  border-radius: 2px;
-                  cursor: pointer;
-                "
-                :src="require(`@/assets/images/MapLogo/OSM地图.jpg`)"
-                fit="cover"
-              />
-              <h6 style="cursor: pointer">OSM地图</h6>
-            </el-col>
-          </el-row>
-        </div>
-      </el-popover>
-    </div>
+    <!-- 图层与标绘工具 -->
+    <LayerAndDraw
+      :selecttc="selecttc"
+      :selectbh="selectbh"
+      :layersData="layersData"
+      @clicktc="clicktc"
+      @clickbh="clickbh"
+      @layerTreeClick="layerTreeClick"
+      @drawFeatures="drawFeatures"
+    ></LayerAndDraw>
+    <!-- 地图工具 -->
+    <MapTool
+      :coordinates="coordinates"
+      @reset="reset"
+      @locate="locate"
+      @zoomOut="zoomOut"
+      @zoomIn="zoomIn"
+      @rotate="rotate"
+      @clear="clear"
+      @lineMeasure="lineMeasure"
+      @areaMeasure="areaMeasure"
+      @stopMeasure="stopMeasure"
+      @importKml="importKml"
+      @importKmz="importKmz"
+      @importShp="importShp"
+      @importShpZip="importShpZip"
+      @importGeojson="importGeojson"
+      @exportJpeg="exportJpeg"
+      @exportPdf="exportPdf"
+      @exportKml="exportKml"
+      @closeUpload="closeUpload"
+    ></MapTool>
+    <!-- 底图切换工具 -->
+    <BasemapToggle
+      :basemapImage="basemapImage"
+      @basemapToggle="basemapToggle"
+    ></BasemapToggle>
+    <!-- 属性查询弹窗 -->
     <PropertyPopup
       :propertyTableData="propertyTableData"
       :tableFeatureName="tableFeatureName"
+      @closePopup="closePopup"
     ></PropertyPopup>
   </div>
 </template>
@@ -393,21 +65,14 @@ import { Circle, Fill, Stroke, Style, Text } from 'ol/style'
 import MeasureTool from '@/utils/measure.js'
 import KML from 'ol/format/KML'
 import GeoJSON from 'ol/format/GeoJSON'
-import PropertyPopup from '@/components/Common/PropertyPopup.vue'
-import { Search, CopyDocument, EditPen } from '@element-plus/icons-vue'
-import {
-  Coordinate,
-  Upload,
-  Download,
-  RefreshRight,
-  Brush,
-  ZoomIn,
-  ZoomOut,
-  Location,
-  House,
-  UploadFilled,
-  Close,
-} from '@element-plus/icons-vue'
+import Draw from 'ol/interaction/Draw'
+import { jsPDF } from 'jspdf'
+import { saveAs } from 'file-saver'
+
+import LayerAndDraw from '@/components/Common/LayerAndDraw'
+import MapTool from '@/components/Common/MapTool'
+import BasemapToggle from '@/components/Common/BasemapToggle'
+import PropertyPopup from '@/components/Common/PropertyPopup'
 
 //地图定义
 const map = ref(null)
@@ -422,49 +87,30 @@ let layers = []
 const attributions =
   '<a href="http://www.xinhuigs.com/" target="_blank">Copyright&nbsp;&nbsp;&nbsp;&copy;&nbsp;&nbsp;2022 &nbsp;&nbsp;&nbsp;Xinhui&nbsp;Group&nbsp;&nbsp;&nbsp;All&nbsp;Rights&nbsp;Reserved.</a> '
 
-//矢量图层定义
-// const source = new VectorSource({
-//   wrapX: false,
-// })
-
-// const measureVector = new VectorLayer({
-//   title: '测量矢量图层',
-//   source: source,
-// })
-
-// let measureDraw //测量工具绘制的图形
-
 //导入
-const uploadInput = ref(null)
 const jsZip = require('jszip')
 const shapefile = require('shapefile')
-let kmlSource = new VectorSource({
+const kmlSource = new VectorSource({
   wrapX: false,
   format: new KML({
     extractStyles: false,
   }),
 })
-let shpSource = new VectorSource({
+const shpSource = new VectorSource({
   wrapX: false,
 })
-let geojsonSource = new VectorSource({
+const geojsonSource = new VectorSource({
   wrapX: false,
   format: new GeoJSON({}),
 })
 
+//随机生成RGBA颜色
 function randomRgbaColor() {
-  //随机生成RGBA颜色
   var r = Math.floor(Math.random() * 256) //随机生成256以内r值
   var g = Math.floor(Math.random() * 256) //随机生成256以内g值
   var b = Math.floor(Math.random() * 256) //随机生成256以内b值
   var alpha = 1 // Math.random(); //随机生成1以内a值
   return `rgb(${r},${g},${b},${alpha})` //返回rgba(r,g,b,a)格式颜色
-}
-
-//图层树
-const defaultProps = {
-  children: 'children',
-  label: 'label',
 }
 
 //geoserver图层数据结构
@@ -656,7 +302,7 @@ const layersData = [
       {
         id: 28,
         label: '台风',
-        layerName: '',
+        layerName: 'xhis:irrigation_wz_e_doumen',
         visible: false,
       },
     ],
@@ -709,6 +355,7 @@ const tdcvaLayer = new TileLayer({
     url: 'http://t0.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=9970c29ec3f3482ac1448cd57b16685d',
     //wrapX: false,
     attributions: attributions,
+    crossOrigin: 'anonymous',
   }),
   visible: true,
 })
@@ -720,6 +367,7 @@ const tdvecLayer = new TileLayer({
     url: 'http://t0.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=9970c29ec3f3482ac1448cd57b16685d',
     //wrapX: false,
     attributions: attributions,
+    crossOrigin: 'anonymous',
   }),
   visible: true,
 })
@@ -731,6 +379,7 @@ const tdimgLayer = new TileLayer({
     url: 'http://t0.tianditu.com/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=9970c29ec3f3482ac1448cd57b16685d',
     //wrapX: false,
     attributions: attributions,
+    crossOrigin: 'anonymous',
   }),
   visible: false,
 })
@@ -742,6 +391,7 @@ const tdterLayer = new TileLayer({
     url: 'http://t0.tianditu.com/DataServer?T=ter_w&x={x}&y={y}&l={z}&tk=9970c29ec3f3482ac1448cd57b16685d',
     //wrapX: false,
     attributions: attributions,
+    crossOrigin: 'anonymous',
   }),
   visible: false,
 })
@@ -791,11 +441,71 @@ function clickbh() {
   document.getElementById('layer-card').style.display = 'none'
   document.getElementById('draw-card').style.display = 'block'
 }
-//标绘卡片
-const drawRadio = ref('点标绘')
 
-//图层过滤输入框
-const input = ref('')
+//图层过滤
+// function filterNode(value, data) {
+//   if (!value) return true
+//   return data.label.includes(value)
+// }
+
+/* 图层控制 */
+function layerTreeClick(data, check) {
+  const layers = map.value.getLayers().array_
+  for (let i = 0; i < layers.length; i++) {
+    if (
+      !('title' in layers[i].values_) &&
+      data.layerName == layers[i].values_.source.params_.LAYERS
+    ) {
+      layers[i].setVisible(check)
+    }
+  }
+}
+
+//标绘
+const drawRadio = ref('')
+const draw = ref(null)
+const drawSource = new VectorSource({
+  wrapX: false,
+})
+function drawFeatures(value) {
+  map.value.removeInteraction(draw.value)
+  ElMessage({
+    showClose: true,
+    message: '按Esc键结束标绘',
+    center: true,
+    duration: 5000,
+    type: 'warning',
+  })
+
+  document.onkeydown = function (e) {
+    if (e.code == 'Escape') {
+      drawRadio.value = ''
+      map.value.removeInteraction(draw.value)
+    }
+  }
+  let type
+  switch (value) {
+    case '点标绘':
+      type = 'Point'
+      break
+    case '线标绘':
+      type = 'LineString'
+      break
+    case '面标绘':
+      type = 'Polygon'
+      break
+  }
+  draw.value = new Draw({
+    source: drawSource,
+    type: type,
+  })
+  map.value.addInteraction(draw.value)
+  const drawLayer = new VectorLayer({
+    title: '标绘图层',
+    source: drawSource,
+  })
+  map.value.addLayer(drawLayer)
+}
 
 //初始化地图
 function initMap() {
@@ -848,13 +558,13 @@ function initMap() {
   //属性查询
   getClickInfo()
   //当前定位点添加至地图
-  // new VectorLayer({
-  //   map: map.value,
-  //   source: new VectorSource({
-  //     features: [positionFeature],
-  //     wrapX: false,
-  //   }),
-  // })
+  new VectorLayer({
+    map: map.value,
+    source: new VectorSource({
+      features: [positionFeature],
+      wrapX: false,
+    }),
+  })
 
   //测量绘制添加至地图
   // map.value.addLayer(measureVector)
@@ -867,27 +577,15 @@ function initMap() {
   addGeojsonLayer()
 }
 
-/* 图层控制 */
-function layerTreeClick(data, check) {
-  const layers = map.value.getLayers().array_
-  for (let i = 0; i < layers.length; i++) {
-    if (
-      !('title' in layers[i].values_) &&
-      data.layerName == layers[i].values_.source.params_.LAYERS
-    ) {
-      layers[i].setVisible(check)
-    }
-  }
-}
-
 /* 属性查询 */
 let propertyTableData = ref([])
 let tableFeatureName = ref('')
 let popupInfo = reactive({})
 let propertiesInfo = reactive({})
 let newArray = ref([])
+let popup
 function getClickInfo() {
-  const popup = new Overlay({
+  popup = new Overlay({
     element: document.getElementById('popup'),
     //autoPan: true,
   })
@@ -939,6 +637,11 @@ function getClickInfo() {
   })
 }
 
+//点击关闭按钮关闭弹窗
+function closePopup() {
+  popup.setPosition(undefined)
+}
+
 /* 地图工具 */
 const zoom = view.getZoom()
 const center = view.getCenter()
@@ -976,13 +679,18 @@ positionFeature.setStyle(
   })
 )
 
+//直接获取的定位坐标有偏移,手动修正
+let falseCoordinates = []
 let coordinates = []
 geolocation.on('change:position', function () {
-  coordinates = geolocation.getPosition()
+  falseCoordinates = geolocation.getPosition()
+  coordinates[0] = falseCoordinates[0] + 0.1735
+  coordinates[1] = falseCoordinates[1] - 0.0679
   positionFeature.setGeometry(coordinates ? new Point(coordinates) : null)
 })
 
 function locate() {
+  //console.log(coordinates)
   map.value.getView().animate({
     center: coordinates,
     duration: 2000,
@@ -1016,6 +724,12 @@ function clear() {
   kmlSource.clear()
   shpSource.clear()
   geojsonSource.clear()
+  //清除标绘图层
+  drawSource.clear()
+  // if (map.value.getControls().array_.length == 5) {
+  //   map.value.removeControl(map.value.getControls().array_[4])
+  //console.log(map.value.getControls().array_[4])
+  //}
 }
 
 //测量
@@ -1037,40 +751,32 @@ function coordinateMeasure() {
 
 //距离测量
 function lineMeasure() {
-  // clear()
   MeasureTool.measure(map.value, 'length', true)
 }
 
 //面积测量
 function areaMeasure() {
-  // clear()
   MeasureTool.measure(map.value, 'area', true)
 }
 
 //停止测量
 function stopMeasure() {
-  //console.log(map.value.controls)
-  //map.value.removeInteraction(draw)
   MeasureTool.measure(map.value, '', false)
-  // if (map.value.getControls().array_.length == 5) {
-  //   map.value.removeControl(map.value.getControls().array_[4])
-  //console.log(map.value.getControls().array_[4])
-  //}
 }
 
 //导入
 //关闭导入对话框
 function closeUpload() {
-  document.getElementById('upload-kml').style.display = 'none'
-  document.getElementById('upload-kmz').style.display = 'none'
-  document.getElementById('upload-shp').style.display = 'none'
-  document.getElementById('upload-shp-zip').style.display = 'none'
-  document.getElementById('upload-Geojson').style.display = 'none'
+  document.getElementById('import-kml').style.display = 'none'
+  document.getElementById('import-kmz').style.display = 'none'
+  document.getElementById('import-shp').style.display = 'none'
+  document.getElementById('import-shp-zip').style.display = 'none'
+  document.getElementById('import-Geojson').style.display = 'none'
 }
 //导入KML
-function uploadKml() {
+function importKml() {
   closeUpload()
-  document.getElementById('upload-kml').style.display = 'block'
+  document.getElementById('import-kml').style.display = 'block'
 }
 function addKmlLayer() {
   let fileselect = document.querySelector('#kml-file')
@@ -1102,7 +808,7 @@ function addKmlLayer() {
 
         kmlSource.forEachFeature(function (feature) {
           let style = new Style({
-            fill: new Fill({ color: 'purple' }),
+            fill: new Fill({ color: '#8fb2c9' }),
             stroke: new Stroke({ color: 'orange' }),
             text: new Text({
               text: feature.get('name'),
@@ -1119,17 +825,16 @@ function addKmlLayer() {
       }
     }.bind()
   )
-  let kmlLayer = new VectorLayer({
+  const kmlLayer = new VectorLayer({
     title: 'kml图层',
     source: kmlSource,
   })
   map.value.addLayer(kmlLayer)
 }
-
 //导入KMZ
-function uploadKmz() {
+function importKmz() {
   closeUpload()
-  document.getElementById('upload-kmz').style.display = 'block'
+  document.getElementById('import-kmz').style.display = 'block'
 }
 function addKmzLayer() {
   let fileselect = document.querySelector('#kmz-file')
@@ -1161,7 +866,7 @@ function addKmzLayer() {
             kmlSource.forEachFeature(function (feature) {
               let style = new Style({
                 fill: new Fill({
-                  color: 'purple',
+                  color: '#8fb2c9',
                 }),
                 stroke: new Stroke({
                   color: 'orange',
@@ -1187,16 +892,16 @@ function addKmzLayer() {
       })
     }.bind()
   )
-  let kmzLayer = new VectorLayer({
+  const kmzLayer = new VectorLayer({
     title: 'kmz图层',
     source: kmlSource,
   })
   map.value.addLayer(kmzLayer)
 }
 //导入SHP
-function uploadShp() {
+function importShp() {
   closeUpload()
-  document.getElementById('upload-shp').style.display = 'block'
+  document.getElementById('import-shp').style.display = 'block'
 }
 function addShpLayer() {
   let fileselect = document.querySelector('#shp-file')
@@ -1263,16 +968,16 @@ function addShpLayer() {
       }
     }.bind()
   )
-  let shpLayer = new VectorLayer({
+  const shpLayer = new VectorLayer({
     title: 'shp图层',
     source: shpSource,
   })
   map.value.addLayer(shpLayer)
 }
 //导入SHP.ZIP
-function uploadShpZip() {
+function importShpZip() {
   closeUpload()
-  document.getElementById('upload-shp-zip').style.display = 'block'
+  document.getElementById('import-shp-zip').style.display = 'block'
 }
 function addShpZipLayer() {
   let fileselect = document.querySelector('#shp-zip-file')
@@ -1350,16 +1055,16 @@ function addShpZipLayer() {
       })
     }.bind()
   )
-  let shpZipLayer = new VectorLayer({
+  const shpZipLayer = new VectorLayer({
     title: 'shp.zip图层',
     source: shpSource,
   })
   map.value.addLayer(shpZipLayer)
 }
 //导入GEOJSON
-function uploadGeojson() {
+function importGeojson() {
   closeUpload()
-  document.getElementById('upload-Geojson').style.display = 'block'
+  document.getElementById('import-Geojson').style.display = 'block'
 }
 function addGeojsonLayer() {
   let fileselect = document.querySelector('#geojson-file')
@@ -1419,11 +1124,176 @@ function addGeojsonLayer() {
       }
     }.bind()
   )
-  let geojsonLayer = new VectorLayer({
+  const geojsonLayer = new VectorLayer({
     title: 'Geojson图层',
     source: geojsonSource,
   })
   map.value.addLayer(geojsonLayer)
+}
+
+//导出
+//导出JPEG
+function exportJpeg() {
+  map.value.once('rendercomplete', () => {
+    const mapCanvas = document.createElement('canvas')
+    const size = map.value.getSize()
+    mapCanvas.width = size[0]
+    mapCanvas.height = size[1]
+    const mapContext = mapCanvas.getContext('2d')
+    Array.prototype.forEach.call(
+      map.value
+        .getViewport()
+        .querySelectorAll('.ol-layer canvas, canvas.ol-layer'),
+      function (canvas) {
+        if (canvas.width > 0) {
+          const opacity =
+            canvas.parentNode.style.opacity || canvas.style.opacity
+          mapContext.globalAlpha = opacity === '' ? 1 : Number(opacity)
+
+          const backgroundColor = canvas.parentNode.style.backgroundColor
+          if (backgroundColor) {
+            mapContext.fillStyle = backgroundColor
+            mapContext.fillRect(0, 0, canvas.width, canvas.height)
+          }
+
+          let matrix
+          const transform = canvas.style.transform
+          if (transform) {
+            matrix = transform
+              .match(/^matrix\(([^\(]*)\)$/)[1]
+              .split(',')
+              .map(Number)
+          } else {
+            matrix = [
+              parseFloat(canvas.style.width) / canvas.width,
+              0,
+              0,
+              parseFloat(canvas.style.height) / canvas.height,
+              0,
+              0,
+            ]
+          }
+
+          CanvasRenderingContext2D.prototype.setTransform.apply(
+            mapContext,
+            matrix
+          )
+          mapContext.drawImage(canvas, 0, 0)
+        }
+      }
+    )
+    mapContext.globalAlpha = 1
+    if (navigator.msSaveBlob) {
+      // link download attribute does not work on MS browsers
+      navigator.msSaveBlob(mapCanvas.msToBlob(), 'Map.jpg')
+    } else {
+      const link = document.getElementById('image-download')
+      link.href = mapCanvas.toDataURL()
+      link.click()
+    }
+  })
+  map.value.renderSync()
+}
+//导出PDF
+function exportPdf() {
+  map.value.once('rendercomplete', () => {
+    const mapCanvas = document.createElement('canvas')
+    const size = map.value.getSize()
+    // 设定尺寸为A4(297*210),设定分辨率为150dpi
+    const width = Math.round((297 * 150) / 25.4)
+    const height = Math.round((210 * 150) / 25.4)
+
+    mapCanvas.width = width
+    mapCanvas.height = height
+
+    const mapContext = mapCanvas.getContext('2d')
+    Array.prototype.forEach.call(
+      map.value
+        .getViewport()
+        .querySelectorAll('.ol-layer canvas, canvas.ol-layer'),
+      function (canvas) {
+        if (canvas.width > 0) {
+          const opacity =
+            canvas.parentNode.style.opacity || canvas.style.opacity
+          mapContext.globalAlpha = opacity === '' ? 1 : Number(opacity)
+
+          // console.log(canvas.width)
+          // console.log(canvas.height)
+
+          const backgroundColor = canvas.parentNode.style.backgroundColor
+          if (backgroundColor) {
+            mapContext.fillStyle = backgroundColor
+            mapContext.fillRect(0, 0, canvas.width, canvas.height)
+          }
+
+          let matrix
+          const transform = canvas.style.transform
+          if (transform) {
+            matrix = transform
+              .match(/^matrix\(([^\(]*)\)$/)[1]
+              .split(',')
+              .map(Number)
+          } else {
+            matrix = [
+              parseFloat(canvas.style.width) / canvas.width,
+              0,
+              0,
+              parseFloat(canvas.style.height) / canvas.height,
+              0,
+              0,
+            ]
+          }
+
+          CanvasRenderingContext2D.prototype.setTransform.apply(
+            mapContext,
+            matrix
+          )
+          mapContext.drawImage(canvas, 0, 0)
+        }
+      }
+    )
+    mapContext.globalAlpha = 1
+    // 导出地图pdf
+    const pdf = new jsPDF('landscape', undefined, [width, height])
+    pdf.addImage(mapCanvas.toDataURL('image/jpeg'), 'JPEG', 0, 0, width, height)
+    pdf.save('Map.pdf')
+  })
+  map.value.renderSync()
+}
+//导出KML
+function exportKml() {
+  //设置feature的style和名字
+  drawSource.forEachFeature(function (feature) {
+    let style = new Style({
+      fill: new Fill({
+        color: 'transparent',
+      }),
+      stroke: new Stroke({
+        color: 'red',
+      }),
+    })
+    feature.setStyle(style)
+    feature.setProperties({
+      name: 'kml',
+    })
+  })
+
+  let features = drawSource.getFeatures()
+  if (features.length !== 0) {
+    let kmlData = new KML().writeFeaturesNode(features)
+    const str = new XMLSerializer().serializeToString(kmlData)
+    //console.log(str)
+    saveAs(
+      new Blob([str], {
+        type: 'text/plain;charset=utf-8',
+      }),
+      `Draw.kml`
+    )
+  } else {
+    ElMessageBox.alert('请先进行标绘！', 'KML导出错误', {
+      confirmButtonText: '确定',
+    })
+  }
 }
 
 /* 底图切换 */
@@ -1474,143 +1344,5 @@ onMounted(() => {
 #map {
   height: 100%;
   width: 100%;
-}
-
-/*图层控制与标绘组件*/
-.left-card {
-  position: absolute;
-  transform: translate(8px, 8px);
-  opacity: 0.95;
-  width: 300px;
-  z-index: 9;
-}
-
-.toggle-button /deep/ .el-card__body {
-  padding: 0px;
-  text-align: center;
-}
-.toggle-button /deep/ el-button {
-  display: inline-block;
-  margin-left: 0px;
-}
-
-.toggle-button-select /deep/ {
-  margin-left: 0px;
-  font-size: 20px;
-  padding: 0px;
-  width: 149px;
-}
-
-/* 选中文字颜色 */
-.toggle-button-select.el-button--info.is-text.is-has-bg /deep/ {
-  color: #46a0fe;
-  /* font-weight: bolder; */
-}
-
-/* 图层卡片 */
-.layer-search {
-  margin-bottom: 13px;
-}
-
-/* 标绘卡片 */
-#draw-card {
-  display: none;
-  text-align: center;
-}
-
-/*地图工具组件css*/
-.map-tool {
-  position: absolute;
-  right: 8px;
-  top: 69px;
-  opacity: 0.9;
-  z-index: 9;
-}
-
-.map-tool-item {
-  text-align: center;
-}
-.map-tool-item .el-button /deep/ {
-  margin-left: 0px;
-  padding: 0px;
-  width: 125px;
-}
-
-/* 上传对话框 */
-.upload {
-  /* display: none; */
-  position: fixed;
-  left: 38%;
-  top: 69px;
-  width: 450px;
-  height: auto;
-  background-color: #ffffff;
-  opacity: 0.9;
-  z-index: 12;
-}
-
-#upload-kml,
-#upload-kmz,
-#upload-shp,
-#upload-shp-zip,
-#upload-Geojson {
-  display: none;
-}
-
-/*底图切换工具*/
-.basemap-toggle {
-  position: absolute;
-  text-align: center;
-  right: 9px;
-  bottom: 41px;
-  opacity: 0.9;
-  z-index: 9;
-}
-
-.basemap-toggle .el-card /deep/ {
-  width: 80px;
-  height: 80px;
-  cursor: pointer;
-  --el-card-border-radius: 4px;
-  --el-card-padding: 0px;
-}
-
-.basemap-toggle .el-card .el-card__body /deep/ {
-  height: 80px;
-}
-
-.basemap-toggle h6 {
-  color: #91b9cf;
-  font-family: '微软雅黑';
-  font-weight: 600;
-  text-shadow: 0 0 0.5px #333738;
-  margin: 0;
-  transform: translate(0%, -150%);
-}
-
-.basemap-toggle-row .el-row /deep/ {
-  height: 80px;
-  padding-left: 1px;
-}
-
-.basemap-toggle-row {
-  text-align: center;
-}
-
-.basemap-toggle-row h6 {
-  color: #91b9cf;
-  font-family: '微软雅黑';
-  font-weight: 600;
-  text-shadow: 0 0 0.5px #333738;
-  margin: 0;
-  transform: translate(0%, -150%);
-}
-
-.basemap-toggle-row .el-image {
-  transition: all 0.3s;
-}
-
-.basemap-toggle-row .el-image:hover {
-  transform: scale(1.04);
 }
 </style>
