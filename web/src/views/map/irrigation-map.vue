@@ -1710,16 +1710,16 @@ onMounted(() => {
   z-index: 9;
 }
 
-.toggle-button /deep/ .el-card__body {
+.toggle-button ::v-deep .el-card__body {
   padding: 0px;
   text-align: center;
 }
-.toggle-button /deep/ el-button {
+.toggle-button ::v-deep el-button {
   display: inline-block;
   margin-left: 0px;
 }
 
-.toggle-button-select /deep/ {
+.toggle-button-select ::v-deep {
   margin-left: 0px;
   font-size: 20px;
   padding: 0px;
@@ -1727,7 +1727,7 @@ onMounted(() => {
 }
 
 /* 选中文字颜色 */
-.toggle-button-select.el-button--info.is-text.is-has-bg /deep/ {
+.toggle-button-select.el-button--info.is-text.is-has-bg ::v-deep {
   color: #46a0fe;
   /* font-weight: bolder; */
 }
@@ -1755,7 +1755,7 @@ onMounted(() => {
 .map-tool-item {
   text-align: center;
 }
-.map-tool-item .el-button /deep/ {
+.map-tool-item .el-button ::v-deep {
   margin-left: 0px;
   padding: 0px;
   width: 125px;
@@ -1792,7 +1792,7 @@ onMounted(() => {
   z-index: 9;
 }
 
-.basemap-toggle .el-card /deep/ {
+.basemap-toggle .el-card ::v-deep {
   width: 80px;
   height: 80px;
   cursor: pointer;
@@ -1800,7 +1800,7 @@ onMounted(() => {
   --el-card-padding: 0px;
 }
 
-.basemap-toggle .el-card .el-card__body /deep/ {
+.basemap-toggle .el-card .el-card__body ::v-deep {
   height: 80px;
 }
 
@@ -1813,7 +1813,7 @@ onMounted(() => {
   transform: translate(0%, -150%);
 }
 
-.basemap-toggle-row .el-row /deep/ {
+.basemap-toggle-row .el-row ::v-deep {
   height: 80px;
   padding-left: 1px;
 }

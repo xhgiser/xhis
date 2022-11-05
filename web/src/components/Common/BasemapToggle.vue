@@ -101,7 +101,7 @@ function basemapToggle(index) {
   z-index: 9;
 }
 
-.basemap-toggle .el-card /deep/ {
+.basemap-toggle .el-card ::v-deep {
   width: 80px;
   height: 80px;
   cursor: pointer;
@@ -109,7 +109,7 @@ function basemapToggle(index) {
   --el-card-padding: 0px;
 }
 
-.basemap-toggle .el-card .el-card__body /deep/ {
+.basemap-toggle .el-card .el-card__body ::v-deep {
   height: 80px;
 }
 
@@ -122,7 +122,7 @@ function basemapToggle(index) {
   transform: translate(0%, -150%);
 }
 
-.basemap-toggle-row .el-row /deep/ {
+.basemap-toggle-row .el-row ::v-deep {
   height: 80px;
   padding-left: 1px;
 }

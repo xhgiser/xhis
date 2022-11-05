@@ -462,27 +462,27 @@ function layerTreeClick(data, check) {
 }
 
 //标绘
-const drawRadio = ref('')
 const draw = ref(null)
 const drawSource = new VectorSource({
   wrapX: false,
 })
 function drawFeatures(value) {
+  // drawRadio.value = '?'
   map.value.removeInteraction(draw.value)
   ElMessage({
     showClose: true,
     message: '按Esc键结束标绘',
     center: true,
-    duration: 5000,
+    duration: 6000,
     type: 'warning',
   })
 
-  document.onkeydown = function (e) {
+  document.onkeyup = function (e) {
     if (e.code == 'Escape') {
-      drawRadio.value = ''
       map.value.removeInteraction(draw.value)
     }
   }
+
   let type
   switch (value) {
     case '点标绘':

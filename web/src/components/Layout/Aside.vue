@@ -18,6 +18,7 @@
             </template>
 
             <el-menu-item
+              class="aside-menu-item"
               v-for="(item2, index) in item.children"
               :index="item2.path"
               :key="index"
@@ -27,7 +28,7 @@
         </template>
         <!-- 二级菜单 -->
         <template v-else>
-          <el-menu-item :index="item.path" :key="index"
+          <el-menu-item class="aside-menu-item" :index="item.path" :key="index"
             >{{ item.title }}
           </el-menu-item>
         </template>

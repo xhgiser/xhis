@@ -1,6 +1,6 @@
-<!-- 航空摄影测量与遥感 -->
+<!-- 航空摄影测量-->
 <template>
-  <div>航空摄影测量与遥感</div>
+  <div>航空摄影测量</div>
 </template>
 
 <script setup></script>

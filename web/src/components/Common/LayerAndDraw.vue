@@ -68,7 +68,13 @@ import { ref, defineEmits } from 'vue'
 import { watch } from '@vue/runtime-core'
 import { Search, CopyDocument, EditPen } from '@element-plus/icons-vue'
 
-defineProps({
+const props = defineProps({
+  map: {
+    type: Object,
+  },
+  draw: {
+    type: Object,
+  },
   selecttc: {
     type: String,
   },
@@ -78,21 +84,13 @@ defineProps({
   layersData: {
     type: Array,
   },
-  filterText: {
-    type: String,
-  },
-  treeRef: {
-    //type: Array,
-  },
   defaultProps: {
     //type: Object,
   },
-  drawRadio: {
-    type: String,
-  },
-  draw: {
-    type: Object,
-  },
+  // drawRadio: {
+  //   type: String,
+  //   default: '',
+  // },
 })
 
 const emit = defineEmits([
@@ -124,14 +122,19 @@ function clicktc() {
 function clickbh() {
   emit('clickbh')
 }
-// function filterNode(value, data) {
-//   emit('filterNode', value, data, treeRef)
-// }
+
 function layerTreeClick(data, check) {
   emit('layerTreeClick', data, check)
 }
+
+const drawRadio = ref('')
 function drawFeatures(value) {
   emit('drawFeatures', value)
+}
+document.onkeydown = function (e) {
+  if (e.code == 'Escape') {
+    drawRadio.value = ''
+  }
 }
 </script>
 
@@ -145,24 +148,24 @@ function drawFeatures(value) {
   z-index: 9;
 }
 
-.toggle-button /deep/ .el-card__body {
+.toggle-button ::v-deep .el-card__body {
   padding: 0px;
   text-align: center;
 }
-.toggle-button /deep/ el-button {
+.toggle-button ::v-deep el-button {
   display: inline-block;
   margin-left: 0px;
 }
 
-.toggle-button-select /deep/ {
+.toggle-button-select ::v-deep {
   margin-left: 0px;
   font-size: 20px;
   padding: 0px;
-  width: 149px;
+  width: 148px;
 }
 
 /* 选中文字颜色 */
-.toggle-button-select.el-button--info.is-text.is-has-bg /deep/ {
+.toggle-button-select.el-button--info.is-text.is-has-bg ::v-deep {
   color: #46a0fe;
   /* font-weight: bolder; */
 }

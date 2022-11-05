@@ -52,7 +52,7 @@ const itemList = [
     children: [
       { path: 'geodeticsurvey-project', title: '大地测量' },
       { path: 'engineersurvey-project', title: '工程测量' },
-      { path: 'photosurvey-project', title: '航空摄影测量与遥感' },
+      { path: 'photosurvey-project', title: '航空摄影测量' },
       { path: 'boundarysurvey-project', title: '界线与不动产测绘' },
       { path: 'gis-project', title: '地理信息工程' },
       { path: 'oceansurvey-project', title: '海洋工程' },

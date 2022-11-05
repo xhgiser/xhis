@@ -38,7 +38,7 @@ li {
 }
 /* el-message弹出位置下移 */
 .el-message {
-  top: 69px !important;
+  top: 79px !important;
 }
 
 /* 自定义openlayers地图组件 */

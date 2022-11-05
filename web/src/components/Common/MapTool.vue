@@ -335,8 +335,8 @@ function closeUpload() {
 /*地图工具*/
 .map-tool {
   position: absolute;
-  right: 8px;
-  top: 69px;
+  top: 79px !important;
+  right: 9px;
   opacity: 0.9;
   z-index: 9;
 }
@@ -344,7 +344,7 @@ function closeUpload() {
 .map-tool-item {
   text-align: center;
 }
-.map-tool-item .el-button /deep/ {
+.map-tool-item .el-button ::v-deep {
   margin-left: 0px;
   padding: 0px;
   width: 125px;
@@ -355,7 +355,7 @@ function closeUpload() {
   /* display: none; */
   position: fixed;
   left: 38%;
-  top: 69px;
+  top: 79px;
   width: 450px;
   height: auto;
   background-color: #ffffff;
