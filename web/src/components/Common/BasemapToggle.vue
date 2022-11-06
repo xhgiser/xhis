@@ -99,6 +99,7 @@ function basemapToggle(index) {
   bottom: 41px;
   opacity: 0.9;
   z-index: 9;
+  cursor: pointer;
 }
 
 :deep(.basemap-toggle .el-card) {
