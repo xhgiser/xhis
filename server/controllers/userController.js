@@ -8,13 +8,13 @@ const { jwtSecretKey } = require('../config/jwtSecretKey')
  */
 exports.registerController = (req, res) => {
   // 用户名或者密码判空的校验
-  let { userName, password, name, user_department, user_type } = req.body
-  if (!userName || !password) {
+  let { username, password, name, user_department, user_type } = req.body
+  if (!username || !password) {
     return res.send({ code: 1, message: '用户名或者密码不能为空！' })
   }
   // 用户名查重的逻辑
   const userSelectSql = 'select * from user where username=?'
-  mysql.query(userSelectSql, userName, (err, results) => {
+  mysql.query(userSelectSql, username, (err, results) => {
     if (err) {
       return res.send({ code: 1, message: err.message })
     }
@@ -33,7 +33,7 @@ exports.registerController = (req, res) => {
       'insert into user (username,password,name,user_create_time,user_department,user_type) value (?,?,?,NOW(),?,?)'
     mysql.query(
       userInsertSql,
-      [userName, passwordB, name, user_department, user_type],
+      [username, passwordB, name, user_department, user_type],
       (err, results) => {
         if (err) {
           return res.send({ code: 1, message: err.message })
@@ -53,9 +53,9 @@ exports.registerController = (req, res) => {
  * 登录接口逻辑
  */
 exports.loginController = (req, res) => {
-  let { userName, password } = req.body
+  let { username, password } = req.body
   const userSelectSql = 'select * from user where username=?'
-  mysql.query(userSelectSql, userName, (err, results) => {
+  mysql.query(userSelectSql, username, (err, results) => {
     //错误日志返回
     if (err) {
       return res.send({ code: 1, message: err.message })
@@ -101,6 +101,10 @@ exports.userInfoController = (req, res) => {
 
   res.send({
     code: 0,
-    data: { name: userInfo.name, user_type: userInfo.user_type },
+    data: {
+      name: userInfo.name,
+      user_department: userInfo.user_department,
+      user_type: userInfo.user_type,
+    },
   })
 }

@@ -38,14 +38,14 @@
           </template>
         </el-input>
       </div>
-      <el-scrollbar max-height="680px">
+      <el-scrollbar max-height="615px">
         <el-tree
           ref="treeRef"
           :data="layersData"
           class="filter-tree"
           show-checkbox
           node-key="id"
-          :default-expanded-keys="[1, 2, 3, 4, 16, 19]"
+          :default-expanded-keys="[1, 2, 3, 4]"
           :default-checked-keys="[]"
           :props="defaultProps"
           :filter-node-method="filterNode"
@@ -148,16 +148,16 @@ document.onkeydown = function (e) {
   z-index: 9;
 }
 
-.toggle-button ::v-deep .el-card__body {
+.toggle-button :deep(.el-card__body) {
   padding: 0px;
   text-align: center;
 }
-.toggle-button ::v-deep el-button {
+.toggle-button :deep(el-button) {
   display: inline-block;
   margin-left: 0px;
 }
 
-.toggle-button-select ::v-deep {
+:deep(.toggle-button-select) {
   margin-left: 0px;
   font-size: 20px;
   padding: 0px;
@@ -165,14 +165,15 @@ document.onkeydown = function (e) {
 }
 
 /* 选中文字颜色 */
-.toggle-button-select.el-button--info.is-text.is-has-bg ::v-deep {
+:deep(.toggle-button-select.el-button--info.is-text.is-has-bg) {
   color: #46a0fe;
   /* font-weight: bolder; */
 }
 
 /* 图层卡片 */
 #layer-card {
-  max-height: 745px;
+  max-height: 680px;
+  padding-bottom: 10px;
 }
 
 .layer-search {

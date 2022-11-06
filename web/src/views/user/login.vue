@@ -10,8 +10,12 @@
         @keyup.enter="onLogin"
         ref="ref_form"
       >
-        <el-form-item prop="userName">
-          <el-input placeholder="请输入用户名" v-model.trim="userInfo.userName">
+        <el-form-item prop="username">
+          <el-input
+            placeholder="请输入用户名"
+            v-model.trim="userInfo.username"
+            clearable
+          >
             <template #prepend>
               <el-icon><User /></el-icon>
             </template>
@@ -22,6 +26,7 @@
             placeholder="请输入密码"
             show-password
             v-model.trim="userInfo.password"
+            clearable
           >
             <template #prepend>
               <el-icon><Lock /></el-icon>
@@ -50,7 +55,7 @@ const ref_form = ref(null)
  * 表单的数据声明
  */
 const userInfo = reactive({
-  userName: '',
+  username: '',
   password: '',
 })
 
@@ -58,7 +63,7 @@ const userInfo = reactive({
  * 表单数据校验规则
  */
 const rules = {
-  userName: [{ required: 'true', trigger: 'blur', message: '用户名不能为空' }],
+  username: [{ required: 'true', trigger: 'blur', message: '用户名不能为空' }],
   password: [{ required: 'true', trigger: 'blur', message: '密码不能为空' }],
 }
 
@@ -79,7 +84,7 @@ const onLogin = () => {
 const getLoginData = async () => {
   //接口的调用
   const res = await getLogin({
-    userName: userInfo.userName,
+    username: userInfo.username,
     password: userInfo.password,
   })
   //如果登录成功

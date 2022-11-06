@@ -31,10 +31,13 @@
         <!-- 用户名下拉菜单 -->
         <el-dropdown class="user-info" trigger="click">
           <span class="el-dropdown-link">
-            超级管理员<i class="el-icon-caret-bottom"></i
+            {{ userInfo.name }}<i class="el-icon-caret-bottom"></i
           ></span>
           <template v-slot:dropdown>
             <el-dropdown-menu>
+              <!-- <el-dropdown-item disabled>{{
+                userInfo.user_department
+              }}</el-dropdown-item> -->
               <el-dropdown-item disabled>个人中心</el-dropdown-item>
               <el-dropdown-item @click="loginout" divided
                 >退出登录</el-dropdown-item
@@ -48,9 +51,10 @@
 </template>
 
 <script setup>
-import { computed, watch } from 'vue'
+import { computed, watch, reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { UserFilled } from '@element-plus/icons-vue'
+import { getUserInfo } from '@/api/index'
 
 const router = useRouter()
 //console.log(router)
@@ -74,17 +78,40 @@ const activeIndex = computed(() => {
 })
 
 function handleSelect(path) {
+  console.log(localStorage.token)
   router.push({
     path,
   })
 }
 
+/**
+ * 获取用户信息
+ */
+const userInfo = reactive({
+  name: '未登录',
+  user_department: '',
+  user_type: '',
+})
+//用户信息接口的调用
+const getUserInfoData = async () => {
+  const res = await getUserInfo()
+  if (res?.name && res?.user_department && res?.user_type) {
+    userInfo.name = res.name
+    userInfo.user_department = res.user_department
+    userInfo.user_type = res.user_type
+  }
+}
+
 function loginout() {
-  localStorage.removeItem('userName')
+  localStorage.removeItem('token')
   router.push({
     path: '/login',
   })
 }
+
+onMounted(() => {
+  getUserInfoData()
+})
 </script>
 <style scoped>
 @import url(@/assets/styles/el-container.css);

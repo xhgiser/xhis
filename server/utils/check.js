@@ -1,6 +1,6 @@
 const joi = require('joi')
 
-const userName = joi
+const username = joi
   .string()
   .pattern(/^[\S]{1,20}$/)
   .required()
@@ -17,7 +17,7 @@ const user_type = joi.required()
 
 exports.userRegisterCheck = {
   body: {
-    userName,
+    username,
     password,
     name,
     user_department,
@@ -27,7 +27,7 @@ exports.userRegisterCheck = {
 
 exports.userLoginCheck = {
   body: {
-    userName,
+    username,
     password,
   },
 }

@@ -13,6 +13,10 @@ const router = createRouter({
       component: () => import('@/views/user/login.vue'),
     },
     {
+      path: '/register',
+      component: () => import('@/views/user/register.vue'),
+    },
+    {
       path: '/home',
       component: () => import('@/views/home/home.vue'),
     },
@@ -51,9 +55,9 @@ const router = createRouter({
        * 未登录用户将被拦截
        * 开发时先注释掉,上线运行需取消
        */
-      // meta: {
-      //   isAuth: true,
-      // },
+      meta: {
+        isAuth: true,
+      },
     },
     {
       path: '/project',
@@ -174,9 +178,9 @@ const router = createRouter({
        * 未登录用户将被拦截
        * 开发时先注释掉,上线运行需取消
        */
-      // meta: {
-      //   isAuth: true,
-      // },
+      meta: {
+        isAuth: true,
+      },
     },
     {
       path: '/3D',
@@ -217,9 +221,9 @@ const router = createRouter({
        * 未登录用户将被拦截
        * 开发时先注释掉,上线运行需取消
        */
-      // meta: {
-      //   isAuth: true,
-      // },
+      meta: {
+        isAuth: true,
+      },
     },
     {
       path: '/analyze',
@@ -252,9 +256,9 @@ const router = createRouter({
        * 未登录用户将被拦截
        * 开发时先注释掉,上线运行需取消
        */
-      // meta: {
-      //   isAuth: true,
-      // },
+      meta: {
+        isAuth: true,
+      },
     },
     {
       path: '/apply',
@@ -279,9 +283,9 @@ const router = createRouter({
        * 未登录用户将被拦截
        * 开发时先注释掉,上线运行需取消
        */
-      // meta: {
-      //   isAuth: true,
-      // },
+      meta: {
+        isAuth: true,
+      },
     },
     {
       path: '/data',
@@ -366,9 +370,9 @@ const router = createRouter({
        * 未登录用户将被拦截
        * 开发时先注释掉,上线运行需取消
        */
-      // meta: {
-      //   isAuth: true,
-      // },
+      meta: {
+        isAuth: true,
+      },
     },
     {
       path: '/admin',
@@ -397,9 +401,9 @@ const router = createRouter({
        * 未登录用户将被拦截
        * 开发时先注释掉,上线运行需取消
        */
-      // meta: {
-      //   isAuth: true,
-      // },
+      meta: {
+        isAuth: true,
+      },
     },
 
     {

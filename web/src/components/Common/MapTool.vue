@@ -344,7 +344,7 @@ function closeUpload() {
 .map-tool-item {
   text-align: center;
 }
-.map-tool-item .el-button ::v-deep {
+:deep(.map-tool-item .el-button) {
   margin-left: 0px;
   padding: 0px;
   width: 125px;
