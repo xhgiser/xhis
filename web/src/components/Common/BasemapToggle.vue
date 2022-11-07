@@ -128,6 +128,9 @@ function basemapToggle(index) {
   height: 80px;
   padding-left: 1px;
 }
+.basemap-toggle-row :deep(.is-guttered) {
+  height: 80px;
+}
 
 .basemap-toggle-row {
   text-align: center;
