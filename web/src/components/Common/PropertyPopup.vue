@@ -29,7 +29,6 @@
 </template>
 
 <script setup>
-import { defineEmits } from 'vue'
 import { Close } from '@element-plus/icons-vue'
 defineProps({
   propertyTableData: {

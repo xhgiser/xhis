@@ -208,12 +208,12 @@ const router = createRouter({
           component: () => import('@/views/3D/pointcloud-3D.vue'),
         },
         {
-          path: 'aerialvideo-3D',
-          component: () => import('@/views/3D/aerialvideo-3D.vue'),
+          path: 'video-3D',
+          component: () => import('@/views/3D/video-3D.vue'),
         },
         {
-          path: 'dom-3D',
-          component: () => import('@/views/3D/dom-3D.vue'),
+          path: 'image-3D',
+          component: () => import('@/views/3D/image-3D.vue'),
         },
       ],
 

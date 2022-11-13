@@ -22,12 +22,12 @@ import Aside from '@/components/Layout/Aside.vue'
 
 const itemList = [
   { path: 'real-3D', title: '实景三维模型' },
-  { path: 'manual-3D', title: '人工三维模型' },
+  // { path: 'manual-3D', title: '人工三维模型' },
   { path: 'bim-3D', title: 'BIM模型' },
   { path: 'terrain-3D', title: '三维地形' },
   { path: 'pointcloud-3D', title: '三维点云' },
-  { path: 'aerialvideo-3D', title: '航拍视频' },
-  { path: 'dom-3D', title: '数字影像' },
+  { path: 'video-3D', title: '航拍视频' },
+  { path: 'image-3D', title: '航拍影像' },
 ]
 </script>
 <style lang="less" scoped></style>

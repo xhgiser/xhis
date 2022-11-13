@@ -48,8 +48,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-import { onMounted, watch } from '@vue/runtime-core'
+import { ref, reactive, onMounted } from 'vue'
 import { Map, View } from 'ol'
 import * as control from 'ol/control'
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer'
@@ -1408,9 +1407,4 @@ onMounted(() => {
   initMap()
 })
 </script>
-<style scoped>
-#map {
-  height: 100%;
-  width: 100%;
-}
-</style>
+<style scoped></style>

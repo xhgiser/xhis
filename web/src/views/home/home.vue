@@ -39,12 +39,15 @@ homePic = files
   padding: 0;
   height: 100%;
 }
-.el-carousel__item h3 {
-  color: #475669;
-  opacity: 0.75;
-  margin: 0;
-  text-align: center;
+:deep(.el-carousel__container) {
+  height: 100%;
 }
+// .el-carousel__item h3 {
+//   color: #475669;
+//   opacity: 0.75;
+//   margin: 0;
+//   text-align: center;
+// }
 
 .homeimage {
   height: 100%;

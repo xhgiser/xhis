@@ -234,7 +234,6 @@
 </template>
 
 <script setup>
-import { defineEmits } from 'vue'
 import {
   Upload,
   Download,

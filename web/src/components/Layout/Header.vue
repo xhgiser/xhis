@@ -9,7 +9,7 @@
         :default-active="activeIndex"
         class="el-menu-header"
         mode="horizontal"
-        background-color="#545c64"
+        background-color="#454b52"
         text-color="#fff"
         active-text-color="#ffd04b"
         @select="handleSelect"
@@ -78,7 +78,7 @@ const activeIndex = computed(() => {
 })
 
 function handleSelect(path) {
-  console.log(localStorage.token)
+  //console.log(localStorage.token)
   router.push({
     path,
   })
@@ -113,6 +113,4 @@ onMounted(() => {
   getUserInfoData()
 })
 </script>
-<style scoped>
-@import url(@/assets/styles/el-container.css);
-</style>
+<style scoped></style>

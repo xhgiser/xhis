@@ -48,8 +48,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-import { onMounted, watch } from '@vue/runtime-core'
+import { ref, reactive, onMounted } from 'vue'
 import { Map, View } from 'ol'
 import * as control from 'ol/control'
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer'
@@ -442,12 +441,6 @@ function clickbh() {
   document.getElementById('draw-card').style.display = 'block'
 }
 
-//图层过滤
-// function filterNode(value, data) {
-//   if (!value) return true
-//   return data.label.includes(value)
-// }
-
 /* 图层控制 */
 function layerTreeClick(data, check) {
   const layers = map.value.getLayers().array_
@@ -533,7 +526,13 @@ function initMap() {
           tipLabel: '鹰眼',
           layers: [
             new TileLayer({
-              source: new OSM(),
+              title: '星图地球矢量',
+              source: new XYZ({
+                url: 'https://tiles1.geovisearth.com/base/v1/vec/{z}/{x}/{y}?format=png&tmsIds=w&token=cec6f2d6a92d3cc95a61b873df5da5ffa1f4d2846fcf61ce384aa91aa0ca0141',
+                //wrapX: false,
+                attributions: attributions,
+                crossOrigin: 'anonymous',
+              }),
             }),
           ],
         }), //鹰眼控件
@@ -1340,9 +1339,4 @@ onMounted(() => {
   initMap()
 })
 </script>
-<style scoped>
-#map {
-  height: 100%;
-  width: 100%;
-}
-</style>
+<style scoped></style>

@@ -64,7 +64,7 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from 'vue'
+import { ref } from 'vue'
 import { watch } from '@vue/runtime-core'
 import { Search, CopyDocument, EditPen } from '@element-plus/icons-vue'
 

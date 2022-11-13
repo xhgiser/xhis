@@ -76,7 +76,6 @@
 </template>
 
 <script setup>
-import { defineEmits } from 'vue'
 const emit = defineEmits(['basemapToggle'])
 
 defineProps({

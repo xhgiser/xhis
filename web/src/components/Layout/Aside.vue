@@ -81,5 +81,5 @@ function handleSelect(path) {
 </script>
 
 <style lang="less" scoped>
-@import url(@/assets/styles/el-container.css);
+@import url(@/common/el-container.css);
 </style>
