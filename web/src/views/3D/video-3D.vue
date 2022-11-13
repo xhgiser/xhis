@@ -90,6 +90,16 @@ function initCesium() {
 }
 
 function initVideoBillboard() {
+  const gifDiv = document.createElement('div')
+  const gifImg = document.createElement('img')
+
+  // gif库需要img标签配置下面两个属性
+  gifImg.setAttribute(
+    'rel:animated_src',
+    '@/assets/images/CesiumBillboard/4.gif'
+  )
+  gifImg.setAttribute('rel:auto_play', '0')
+
   viewer.value.entities.add({
     position: Cesium.Cartesian3.fromDegrees(118.6475, 37.394),
     billboard: {
