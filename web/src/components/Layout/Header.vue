@@ -39,9 +39,9 @@
                 userInfo.user_department
               }}</el-dropdown-item> -->
               <el-dropdown-item disabled>个人中心</el-dropdown-item>
-              <el-dropdown-item @click="loginout" divided
-                >退出登录</el-dropdown-item
-              >
+              <el-dropdown-item @click="loginout" divided>{{
+                ifLogin
+              }}</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -84,6 +84,8 @@ function handleSelect(path) {
   })
 }
 
+const ifLogin = ref('点击登录')
+
 /**
  * 获取用户信息
  */
@@ -99,6 +101,7 @@ const getUserInfoData = async () => {
     userInfo.name = res.name
     userInfo.user_department = res.user_department
     userInfo.user_type = res.user_type
+    ifLogin.value = '退出登录'
   }
 }
 

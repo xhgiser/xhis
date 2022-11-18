@@ -140,7 +140,7 @@ const getRegisterData = async () => {
   //如果注册成功
   if (res?.message) {
     ElMessage({
-      message: '注册成功！！！',
+      message: '注册成功！',
       type: 'success',
     })
     //router.push('/login')

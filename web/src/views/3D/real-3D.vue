@@ -28,7 +28,6 @@ import { onMounted, ref } from 'vue'
 import * as Cesium from 'cesium'
 
 import { ArrowUpBold, ArrowDownBold } from '@element-plus/icons-vue'
-import { FALSE } from 'ol/functions'
 
 Cesium.Ion.defaultAccessToken =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhMjNmMTkyYy1hNTVjLTQwMGQtOTVjMy1lYWI5OTJjYzU5NjUiLCJpZCI6NDM1MDgsImlhdCI6MTY2Nzc4ODcyM30.W_IR7QCETFVTT7ZUbWjFcLTM6jjwUlGgmJLF5sptkkA'
@@ -246,7 +245,7 @@ const dataOption = [
 //模型经纬度,由于公司处理的模型空间参考一般为投影坐标系,Cesium可能不支持投影坐标系
 //所以将模型的经纬度查询后存放于数组
 const modelLngLatDeg = {
-  DongYing_XinHuiDaSha: { longitude: '118.6475', latitude: '37.394' },
+  DongYing_XinHuiDaSha: { longitude: '118.6475', latitude: '37.397' },
   DongYing_NanZhangCun: { longitude: '118.3314', latitude: '37.423' },
   JiNing_BaiMaHe: { longitude: '116.6977', latitude: '35.14' },
   JiNing_BaiMaHeYouAnFenHongHanDongZha: {
@@ -301,7 +300,28 @@ function flyToData(value) {
     new Cesium.Cesium3DTileset({
       url: 'http://192.168.188.8/3DTiles/' + value[1] + '/tileset.json',
       shadows: false,
+      skipLevelOfDetail: true,
+      baseScreenSpaceError: 1024,
+      //maximumScreenSpaceError: 256, // 数值加大，能让最终成像变模糊
+      skipScreenSpaceErrorFactor: 16,
+      skipLevels: 1,
+      immediatelyLoadDesiredLevelOfDetail: false,
+      loadSiblings: true, // 如果为true则不会在已加载完概况房屋后，自动从中心开始超清化房屋
+      cullWithChildrenBounds: true,
+      cullRequestsWhileMoving: true,
+      cullRequestsWhileMovingMultiplier: 10, // 值越小能够更快的剔除
+      preloadWhenHidden: true,
+      preferLeaves: true,
+      maximumMemoryUsage: 128, // 内存分配变小有利于倾斜摄影数据回收，提升性能体验
+      progressiveResolutionHeightFraction: 0.5, // 数值偏于0能够让初始加载变得模糊
+      dynamicScreenSpaceErrorDensity: 0.1, // 数值加大，能让周边加载变快
+      dynamicScreenSpaceErrorFactor: 1, // 不知道起了什么作用没，反正放着吧先
+      dynamicScreenSpaceError: true, // 根据测试，有了这个后，会在真正的全屏加载完之后才清晰化房屋
     })
+    // .readyPromise.then((tileSet) => {
+    //   viewer.value.scene.primitives.add(tileSet) // 将倾斜摄影实体加载到地图上
+    //   //changeHeight(tileSet, 310) // 将此 tileSet 提高 310 米
+    // })
   )
   viewer.value.camera.flyTo({
     // Cesium的坐标是以地心为原点，一向指向南美洲，一向指向亚洲，一向指向北极州
@@ -309,7 +329,7 @@ function flyToData(value) {
     destination: Cesium.Cartesian3.fromDegrees(
       +modelLngLatDeg[value[1]].longitude,
       +modelLngLatDeg[value[1]].latitude,
-      1000
+      800
     ),
     orientation: {
       // 指向 旋转角 正东为90°
@@ -321,6 +341,33 @@ function flyToData(value) {
     },
   })
 }
+
+// 可通过此函数，来修改 tileSet 的高度
+// function changeHeight(tileSet, height) {
+//   height = Number(height)
+//   if (isNaN(height)) {
+//     return
+//   }
+//   const cartographic = Cesium.Cartographic.fromCartesian(
+//     tileSet.boundingSphere.center
+//   )
+//   const surface = Cesium.Cartesian3.fromRadians(
+//     cartographic.longitude,
+//     cartographic.latitude,
+//     cartographic.height
+//   )
+//   const offset = Cesium.Cartesian3.fromRadians(
+//     cartographic.longitude,
+//     cartographic.latitude,
+//     height
+//   )
+//   const translation = Cesium.Cartesian3.subtract(
+//     offset,
+//     surface,
+//     new Cesium.Cartesian3()
+//   )
+//   tileSet.modelMatrix = Cesium.Matrix4.fromTranslation(translation)
+// }
 onMounted(() => {
   initCesium()
 })

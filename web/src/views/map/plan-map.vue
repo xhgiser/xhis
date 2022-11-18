@@ -367,6 +367,7 @@ const tdvecLayer = new TileLayer({
     //wrapX: false,
     attributions: attributions,
     crossOrigin: 'anonymous',
+    maxZoom: 18,
   }),
   visible: true,
 })
@@ -379,6 +380,7 @@ const tdimgLayer = new TileLayer({
     //wrapX: false,
     attributions: attributions,
     crossOrigin: 'anonymous',
+    maxZoom: 18,
   }),
   visible: false,
 })

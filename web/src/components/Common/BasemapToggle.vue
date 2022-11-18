@@ -1,7 +1,7 @@
 <!-- 底图切换工具 -->
 <template>
   <div class="basemap-toggle">
-    <el-popover placement="left" :width="350" trigger="click">
+    <el-popover placement="left" :width="510" trigger="click">
       <template #reference>
         <el-card shadow="always">
           <el-image
@@ -14,7 +14,7 @@
       </template>
       <div class="basemap-toggle-row">
         <el-row :gutter="2">
-          <el-col :span="6" @click="basemapToggle(1)"
+          <el-col :span="4" @click="basemapToggle(1)"
             ><div class="grid-content ep-bg-purple" />
             <el-image
               style="
@@ -27,7 +27,7 @@
             />
             <h6 style="cursor: pointer">天地图矢量</h6>
           </el-col>
-          <el-col :span="6" @click="basemapToggle(2)"
+          <el-col :span="4" @click="basemapToggle(2)"
             ><div class="grid-content ep-bg-purple" />
             <el-image
               style="
@@ -41,7 +41,7 @@
             />
             <h6 style="cursor: pointer">天地图影像</h6>
           </el-col>
-          <el-col :span="6" @click="basemapToggle(3)"
+          <el-col :span="4" @click="basemapToggle(3)"
             ><div class="grid-content ep-bg-purple" />
             <el-image
               style="
@@ -55,7 +55,7 @@
             />
             <h6 style="cursor: pointer">天地图地形</h6>
           </el-col>
-          <el-col :span="6" @click="basemapToggle(4)"
+          <el-col :span="4" @click="basemapToggle(4)"
             ><div class="grid-content ep-bg-purple" />
             <el-image
               style="
@@ -64,10 +64,38 @@
                 border-radius: 2px;
                 cursor: pointer;
               "
-              :src="require(`@/assets/images/MapLogo/OSM地图.jpg`)"
+              :src="require(`@/assets/images/MapLogo/星图矢量.jpg`)"
               fit="cover"
             />
-            <h6 style="cursor: pointer">OSM地图</h6>
+            <h6 style="cursor: pointer">星图矢量</h6>
+          </el-col>
+          <el-col :span="4" @click="basemapToggle(5)"
+            ><div class="grid-content ep-bg-purple" />
+            <el-image
+              style="
+                width: 80px;
+                height: 80px;
+                border-radius: 2px;
+                cursor: pointer;
+              "
+              :src="require(`@/assets/images/MapLogo/星图影像.jpg`)"
+              fit="cover"
+            />
+            <h6 style="cursor: pointer">星图影像</h6>
+          </el-col>
+          <el-col :span="4" @click="basemapToggle(6)"
+            ><div class="grid-content ep-bg-purple" />
+            <el-image
+              style="
+                width: 80px;
+                height: 80px;
+                border-radius: 2px;
+                cursor: pointer;
+              "
+              :src="require(`@/assets/images/MapLogo/星图地形.jpg`)"
+              fit="cover"
+            />
+            <h6 style="cursor: pointer">星图地形</h6>
           </el-col>
         </el-row>
       </div>

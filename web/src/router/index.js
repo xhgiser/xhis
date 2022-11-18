@@ -423,6 +423,9 @@ router.beforeEach((to, from, next) => {
         message: '请先登录后访问',
         type: 'warning',
       })
+      next({
+        path: '/login',
+      })
     }
   } else {
     next()

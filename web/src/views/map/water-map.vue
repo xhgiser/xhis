@@ -73,6 +73,12 @@ import MapTool from '@/components/Common/MapTool'
 import BasemapToggle from '@/components/Common/BasemapToggle'
 import PropertyPopup from '@/components/Common/PropertyPopup'
 
+//天地图token
+const tdtoken = '92abf9017d78cd71a3ae51d0874b6578'
+//星图token
+const xttoken =
+  'cec6f2d6a92d3cc95a61b873df5da5ffa1f4d2846fcf61ce384aa91aa0ca0141'
+
 //地图定义
 const map = ref(null)
 const view = new View({
@@ -351,7 +357,9 @@ layers = layers.concat(geoserverLayers)
 const tdcvaLayer = new TileLayer({
   title: '天地图注记',
   source: new XYZ({
-    url: 'http://t0.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=9970c29ec3f3482ac1448cd57b16685d',
+    url:
+      'http://t5.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
     //wrapX: false,
     attributions: attributions,
     crossOrigin: 'anonymous',
@@ -363,7 +371,9 @@ layers.unshift(tdcvaLayer)
 const tdvecLayer = new TileLayer({
   title: '天地图矢量',
   source: new XYZ({
-    url: 'http://t0.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=9970c29ec3f3482ac1448cd57b16685d',
+    url:
+      'http://t5.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
     //wrapX: false,
     attributions: attributions,
     crossOrigin: 'anonymous',
@@ -375,10 +385,13 @@ layers.unshift(tdvecLayer)
 const tdimgLayer = new TileLayer({
   title: '天地图影像',
   source: new XYZ({
-    url: 'http://t0.tianditu.com/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=9970c29ec3f3482ac1448cd57b16685d',
+    url:
+      'http://t5.tianditu.com/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
     //wrapX: false,
     attributions: attributions,
     crossOrigin: 'anonymous',
+    maxZoom: 18,
   }),
   visible: false,
 })
@@ -387,7 +400,9 @@ layers.unshift(tdimgLayer)
 const tdterLayer = new TileLayer({
   title: '天地图地形',
   source: new XYZ({
-    url: 'http://t0.tianditu.com/DataServer?T=ter_w&x={x}&y={y}&l={z}&tk=9970c29ec3f3482ac1448cd57b16685d',
+    url:
+      'http://t5.tianditu.com/DataServer?T=ter_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
     //wrapX: false,
     attributions: attributions,
     crossOrigin: 'anonymous',
@@ -395,15 +410,74 @@ const tdterLayer = new TileLayer({
   visible: false,
 })
 layers.unshift(tdterLayer)
-//OSM图层
-const osmLayer = new TileLayer({
-  title: 'OSM地图',
-  source: new OSM({
+//星图矢量图层
+const xtvecLayer = new TileLayer({
+  title: '星图矢量',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/vec/{z}/{x}/{y}?format=png&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
     attributions: attributions,
+    crossOrigin: 'anonymous',
+    maxZoom: 16,
   }),
   visible: false,
 })
-layers.unshift(osmLayer)
+layers.unshift(xtvecLayer)
+//星图影像注记
+const xtciaLayer = new TileLayer({
+  title: '星图影像注记',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/cia/{z}/{x}/{y}?format=png&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+  }),
+  visible: false,
+})
+layers.unshift(xtciaLayer)
+//星图影像图层
+const xtimgLayer = new TileLayer({
+  title: '星图影像',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/img/{z}/{x}/{y}?format=webp&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+    maxZoom: 18,
+  }),
+  visible: false,
+})
+layers.unshift(xtimgLayer)
+//星图地形
+const xtterLayer = new TileLayer({
+  title: '星图地形',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/ter/{z}/{x}/{y}?format=png&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+    maxZoom: 11,
+  }),
+  visible: false,
+})
+layers.unshift(xtterLayer)
+//OSM图层,国内网络无法加载
+// const osmLayer = new TileLayer({
+//   title: 'OSM地图',
+//   source: new OSM({
+//     attributions: attributions,
+//   }),
+//   visible: false,
+// })
+// layers.unshift(osmLayer)
 
 const wmsSource = new TileWMS({
   //不能设置为0，否则地图不展示。
@@ -539,6 +613,7 @@ function initMap() {
         new control.Attribution({
           collapsed: false,
         }), //版权信息不可折叠
+        //new control.MousePosition({}), //鼠标位置坐标
       ]),
     interactions: defaultInteractions({
       // altShiftDragRotate: true, //是否需要 Alt-Shift-drag 旋转
@@ -1306,7 +1381,10 @@ function basemapToggle(index) {
       tdvecLayer.setVisible(true)
       tdimgLayer.setVisible(false)
       tdterLayer.setVisible(false)
-      osmLayer.setVisible(false)
+      xtvecLayer.setVisible(false)
+      xtciaLayer.setVisible(false)
+      xtimgLayer.setVisible(false)
+      xtterLayer.setVisible(false)
       break
     case 2:
       basemapImage.value = '天地图影像'
@@ -1314,7 +1392,10 @@ function basemapToggle(index) {
       tdvecLayer.setVisible(false)
       tdimgLayer.setVisible(true)
       tdterLayer.setVisible(false)
-      osmLayer.setVisible(false)
+      xtvecLayer.setVisible(false)
+      xtciaLayer.setVisible(false)
+      xtimgLayer.setVisible(false)
+      xtterLayer.setVisible(false)
       break
     case 3:
       basemapImage.value = '天地图地形'
@@ -1322,15 +1403,43 @@ function basemapToggle(index) {
       tdvecLayer.setVisible(false)
       tdimgLayer.setVisible(false)
       tdterLayer.setVisible(true)
-      osmLayer.setVisible(false)
+      xtvecLayer.setVisible(false)
+      xtciaLayer.setVisible(false)
+      xtimgLayer.setVisible(false)
+      xtterLayer.setVisible(false)
       break
     case 4:
-      basemapImage.value = 'OSM地图'
+      basemapImage.value = '星图矢量'
       tdcvaLayer.setVisible(false)
       tdvecLayer.setVisible(false)
       tdimgLayer.setVisible(false)
       tdterLayer.setVisible(false)
-      osmLayer.setVisible(true)
+      xtvecLayer.setVisible(true)
+      xtciaLayer.setVisible(false)
+      xtimgLayer.setVisible(false)
+      xtterLayer.setVisible(false)
+      break
+    case 5:
+      basemapImage.value = '星图影像'
+      tdcvaLayer.setVisible(false)
+      tdvecLayer.setVisible(false)
+      tdimgLayer.setVisible(false)
+      tdterLayer.setVisible(false)
+      xtvecLayer.setVisible(false)
+      xtciaLayer.setVisible(true)
+      xtimgLayer.setVisible(true)
+      xtterLayer.setVisible(false)
+      break
+    case 6:
+      basemapImage.value = '星图地形'
+      tdcvaLayer.setVisible(false)
+      tdvecLayer.setVisible(false)
+      tdimgLayer.setVisible(false)
+      tdterLayer.setVisible(false)
+      xtvecLayer.setVisible(false)
+      xtciaLayer.setVisible(true)
+      xtimgLayer.setVisible(false)
+      xtterLayer.setVisible(true)
       break
   }
 }

@@ -379,6 +379,7 @@ const tdimgLayer = new TileLayer({
     //wrapX: false,
     attributions: attributions,
     crossOrigin: 'anonymous',
+    maxZoom: 18,
   }),
   visible: false,
 })

@@ -119,6 +119,10 @@ const dataOption = [
         value: 'DongYing_XinHuiDaSha',
         label: '新汇大厦',
       },
+      {
+        value: 'DongYing_DaTangRenJia',
+        label: '大唐人家',
+      },
     ],
   },
   {
@@ -148,6 +152,7 @@ const dataOption = [
 //所以将模型的经纬度查询后存放于数组
 const modelLngLatDeg = {
   DongYing_XinHuiDaSha: { longitude: '118.6475', latitude: '37.394' },
+  DongYing_DaTangRenJia: { longitude: '118.24948', latitude: '37.47898' },
   TaiAn_ChaiWenHe: { longitude: '117.911', latitude: '35.918' },
 }
 //折叠展开数据详细描述
@@ -167,7 +172,6 @@ function flyToData(value) {
   viewer.value.scene.primitives.add(
     new Cesium.Cesium3DTileset({
       url: 'http://192.168.188.8/PointCloud/' + value[1] + '/tileset.json',
-      //url: 'http://192.168.188.8:9003/model/tCeupfq6g/tileset.json',
       shadows: false,
     })
   )

@@ -60,7 +60,7 @@
       <el-card class="import-card">
         <template #header>
           <div class="card-header" style="display: flex; align-items: center">
-            <span>导入ESRI Shapefile文件</span>
+            <span>导入Shapefile文件</span>
             <el-button
               type="primary"
               :icon="Close"
@@ -170,7 +170,7 @@
             >导入Google KMZ</el-button
           ><br />
           <el-button type="default" text @click="importShp"
-            >导入ESRI Shapefile</el-button
+            >导入Shapefile</el-button
           ><br />
           <el-button type="default" text @click="importShpZip"
             >导入Shapefile.zip</el-button

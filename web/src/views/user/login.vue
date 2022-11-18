@@ -91,7 +91,7 @@ const getLoginData = async () => {
   if (res?.token) {
     localStorage.setItem('token', res?.token)
     ElMessage({
-      message: '登录成功！！！',
+      message: '登录成功！',
       type: 'success',
     })
     router.push('/home')

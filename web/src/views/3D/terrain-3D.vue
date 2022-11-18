@@ -115,10 +115,10 @@ const dataOption = [
     value: 'DongYing',
     label: '东营市',
     children: [
-      {
-        value: 'DongYing_XinHuiDaSha',
-        label: '新汇大厦',
-      },
+      // {
+      //   value: 'DongYing_XinHuiDaSha',
+      //   label: '新汇大厦',
+      // },
       {
         value: 'DongYing_XiaoQingHe_G18',
         label: '小清河-G18段',
@@ -129,10 +129,10 @@ const dataOption = [
     value: 'JiNing',
     label: '济宁市',
     children: [
-      {
-        value: 'JiNing_BaiMaHe',
-        label: '白马河',
-      },
+      // {
+      //   value: 'JiNing_BaiMaHe',
+      //   label: '白马河',
+      // },
       {
         value: 'JiNing_GuangFuHe',
         label: '洸府河',
@@ -181,20 +181,20 @@ const dataOption = [
 //所以将模型的经纬度查询后存放于数组
 const modelLngLatDeg = {
   DongYing_XinHuiDaSha: { longitude: '118.6475', latitude: '37.394' },
-  DongYing_XiaoQingHe_G18: { longitude: '118.3314', latitude: '37.423' },
+  DongYing_XiaoQingHe_G18: { longitude: '118.568', latitude: '37.182' },
   JiNing_BaiMaHe: { longitude: '116.6977', latitude: '35.14' },
   JiNing_GuangFuHe: { longitude: '116.6253', latitude: '35.290' },
-  JiNing_HuaCunShuiKu: { longitude: '117.0906', latitude: '35.625' },
+  JiNing_HuaCunShuiKu: { longitude: '117.468', latitude: '35.697' },
   JiNing_LongWanTaoShuiKu: {
-    longitude: '117.4768',
-    latitude: '35.691',
+    longitude: '117.301',
+    latitude: '35.574',
   },
-  JiNing_NiShanShuiKu: { longitude: '117.4457', latitude: '35.633' },
+  JiNing_NiShanShuiKu: { longitude: '117.208', latitude: '35.464' },
   JiNing_SiHe: { longitude: '116.6764', latitude: '35.243' },
-  JiNing_XiWeiShuiKu: { longitude: '117.028', latitude: '35.408' },
+  JiNing_XiWeiShuiKu: { longitude: '117.044', latitude: '35.383' },
   JiNing_YinChengShuiKu: {
-    longitude: '117.2895',
-    latitude: '35.59',
+    longitude: '117.198',
+    latitude: '35.615',
   },
 }
 //折叠展开数据详细描述
