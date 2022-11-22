@@ -11,7 +11,7 @@
               <el-image
                 :src="require(`@/assets/images/HomePic` + item.slice(1))"
                 class="homeimage"
-                fit="cover"
+                fit="fill"
               />
             </el-carousel-item>
           </el-carousel>

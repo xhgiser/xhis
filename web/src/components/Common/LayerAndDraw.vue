@@ -38,7 +38,7 @@
           </template>
         </el-input>
       </div>
-      <el-scrollbar max-height="615px">
+      <el-scrollbar max-height="545px">
         <el-tree
           ref="treeRef"
           :data="layersData"
@@ -149,12 +149,21 @@ document.onkeydown = function (e) {
   display: inline-block;
   margin-left: 0px;
 }
-
-:deep(.toggle-button-select) {
+/* 图层标绘两个按钮大小 */
+.toggle-button-select {
+  display: inline-block;
   margin-left: 0px;
+  margin-right: 0px;
   font-size: 20px;
   padding: 0px;
-  width: 148px;
+  width: 149px;
+}
+:deep(.el-button + .el-button) {
+  margin-left: 0px !important;
+}
+
+:deep(.el-tree-node__expand-icon) {
+  font-size: inherit;
 }
 
 /* 选中文字颜色 */
@@ -165,7 +174,7 @@ document.onkeydown = function (e) {
 
 /* 图层卡片 */
 #layer-card {
-  max-height: 680px;
+  max-height: 600px;
   padding-bottom: 10px;
 }
 

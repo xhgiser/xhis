@@ -1,7 +1,7 @@
 <!-- 航拍视频 -->
 <template>
   <div id="cesiumContainer">
-    <el-dialog v-model="videoDialogVisible" :title="videoName" width="58%">
+    <el-dialog v-model="videoDialogVisible" :title="videoName" width="73%">
       <video-player
         class="video-player vjs-big-play-centered"
         :src="videoUrl"
@@ -448,7 +448,7 @@ onMounted(() => {
 
 :deep(.el-dialog) {
   left: 100px;
-  top: 120px;
+  top: 85px;
   margin: 0 auto;
   /* background-color: #454b52; */
   background-color: rgb(26, 25, 25);

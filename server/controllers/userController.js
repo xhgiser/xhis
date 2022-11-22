@@ -101,10 +101,8 @@ exports.userInfoController = (req, res) => {
 
   res.send({
     code: 0,
-    data: {
-      name: userInfo.name,
+    data: {  name: userInfo.name,
       user_department: userInfo.user_department,
-      user_type: userInfo.user_type,
-    },
+      user_type: userInfo.user_type, },
   })
 }
