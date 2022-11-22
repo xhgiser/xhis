@@ -1,22 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:se="http://www.opengis.net/se" version="1.1.0" xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.1.0/StyledLayerDescriptor.xsd">
   <NamedLayer>
-    <se:Name>irrigation_reservoir_polygon</se:Name>
+    <se:Name>irrigation_drainage_trunk</se:Name>
     <UserStyle>
-      <se:Name>irrigation_reservoir_polygon</se:Name>
+      <se:Name>irrigation_drainage_trunk</se:Name>
       <se:FeatureTypeStyle>
         <se:Rule>
-          <se:Name>Single symbol</se:Name>
-          <se:PolygonSymbolizer>
-            <se:Fill>
-              <se:SvgParameter name="fill">#63a1fd</se:SvgParameter>
-            </se:Fill>
+          <se:Name></se:Name>
+          <se:MinScaleDenominator>10000000</se:MinScaleDenominator>
+          <se:MaxScaleDenominator>20000000</se:MaxScaleDenominator>
+          <se:LineSymbolizer>
             <se:Stroke>
-              <se:SvgParameter name="stroke">#415ce3</se:SvgParameter>
-              <se:SvgParameter name="stroke-width">1</se:SvgParameter>
+              <se:SvgParameter name="stroke">#11a714</se:SvgParameter>
+              <se:SvgParameter name="stroke-width">0.5</se:SvgParameter>
               <se:SvgParameter name="stroke-linejoin">bevel</se:SvgParameter>
+              <se:SvgParameter name="stroke-linecap">square</se:SvgParameter>
             </se:Stroke>
-          </se:PolygonSymbolizer>
+          </se:LineSymbolizer>
+        </se:Rule>
+        <se:Rule>
+          <se:Name></se:Name>
+          <se:MinScaleDenominator>1000000</se:MinScaleDenominator>
+          <se:MaxScaleDenominator>10000000</se:MaxScaleDenominator>
+          <se:LineSymbolizer>
+            <se:Stroke>
+              <se:SvgParameter name="stroke">#11a714</se:SvgParameter>
+              <se:SvgParameter name="stroke-width">2</se:SvgParameter>
+              <se:SvgParameter name="stroke-linejoin">bevel</se:SvgParameter>
+              <se:SvgParameter name="stroke-linecap">square</se:SvgParameter>
+            </se:Stroke>
+          </se:LineSymbolizer>
+        </se:Rule>
+        <se:Rule>
+          <se:Name></se:Name>
+          <se:MinScaleDenominator>100000</se:MinScaleDenominator>
+          <se:MaxScaleDenominator>1000000</se:MaxScaleDenominator>
+          <se:LineSymbolizer>
+            <se:Stroke>
+              <se:SvgParameter name="stroke">#11a714</se:SvgParameter>
+              <se:SvgParameter name="stroke-width">2</se:SvgParameter>
+              <se:SvgParameter name="stroke-linejoin">bevel</se:SvgParameter>
+              <se:SvgParameter name="stroke-linecap">square</se:SvgParameter>
+            </se:Stroke>
+          </se:LineSymbolizer>
+        </se:Rule>
+        <se:Rule>
+          <se:Name></se:Name>
+          <se:MinScaleDenominator>50000</se:MinScaleDenominator>
+          <se:MaxScaleDenominator>100000</se:MaxScaleDenominator>
+          <se:LineSymbolizer>
+            <se:Stroke>
+              <se:SvgParameter name="stroke">#11a714</se:SvgParameter>
+              <se:SvgParameter name="stroke-width">3</se:SvgParameter>
+              <se:SvgParameter name="stroke-linejoin">bevel</se:SvgParameter>
+              <se:SvgParameter name="stroke-linecap">square</se:SvgParameter>
+            </se:Stroke>
+          </se:LineSymbolizer>
+        </se:Rule>
+        <se:Rule>
+          <se:Name></se:Name>
+          <se:MinScaleDenominator>10000</se:MinScaleDenominator>
+          <se:MaxScaleDenominator>50000</se:MaxScaleDenominator>
+          <se:LineSymbolizer>
+            <se:Stroke>
+              <se:SvgParameter name="stroke">#11a714</se:SvgParameter>
+              <se:SvgParameter name="stroke-width">6</se:SvgParameter>
+              <se:SvgParameter name="stroke-linejoin">bevel</se:SvgParameter>
+              <se:SvgParameter name="stroke-linecap">square</se:SvgParameter>
+            </se:Stroke>
+          </se:LineSymbolizer>
+        </se:Rule>
+        <se:Rule>
+          <se:Name></se:Name>
+          <se:MinScaleDenominator>1000</se:MinScaleDenominator>
+          <se:MaxScaleDenominator>10000</se:MaxScaleDenominator>
+          <se:LineSymbolizer>
+            <se:Stroke>
+              <se:SvgParameter name="stroke">#11a714</se:SvgParameter>
+              <se:SvgParameter name="stroke-width">9</se:SvgParameter>
+              <se:SvgParameter name="stroke-linejoin">bevel</se:SvgParameter>
+              <se:SvgParameter name="stroke-linecap">square</se:SvgParameter>
+            </se:Stroke>
+          </se:LineSymbolizer>
+        </se:Rule>
+        <se:Rule>
+          <se:Name></se:Name>
+          <se:MaxScaleDenominator>2000</se:MaxScaleDenominator>
+          <se:LineSymbolizer>
+            <se:Stroke>
+              <se:SvgParameter name="stroke">#11a714</se:SvgParameter>
+              <se:SvgParameter name="stroke-width">11</se:SvgParameter>
+              <se:SvgParameter name="stroke-linejoin">bevel</se:SvgParameter>
+              <se:SvgParameter name="stroke-linecap">square</se:SvgParameter>
+            </se:Stroke>
+          </se:LineSymbolizer>
         </se:Rule>
         <se:Rule>
           <se:MinScaleDenominator>500000</se:MinScaleDenominator>
@@ -31,21 +108,14 @@
               <se:SvgParameter name="font-weight">bold</se:SvgParameter>
             </se:Font>
             <se:LabelPlacement>
-              <se:PointPlacement>
-                <se:AnchorPoint>
-                  <se:AnchorPointX>0</se:AnchorPointX>
-                  <se:AnchorPointY>0.5</se:AnchorPointY>
-                </se:AnchorPoint>
-                <se:Displacement>
-                  <se:DisplacementX>4.95</se:DisplacementX>
-                  <se:DisplacementY>4.95</se:DisplacementY>
-                </se:Displacement>
-              </se:PointPlacement>
+              <se:LinePlacement>
+                <se:PerpendicularOffset>7</se:PerpendicularOffset>
+                <se:GeneralizeLine>true</se:GeneralizeLine>
+              </se:LinePlacement>
             </se:LabelPlacement>
             <se:Fill>
-              <se:SvgParameter name="fill">#63a1fd</se:SvgParameter>
+              <se:SvgParameter name="fill">#11a714</se:SvgParameter>
             </se:Fill>
-            <se:VendorOption name="maxDisplacement">8</se:VendorOption>
           </se:TextSymbolizer>
         </se:Rule>
         <se:Rule>
@@ -61,21 +131,14 @@
               <se:SvgParameter name="font-weight">bold</se:SvgParameter>
             </se:Font>
             <se:LabelPlacement>
-              <se:PointPlacement>
-                <se:AnchorPoint>
-                  <se:AnchorPointX>0</se:AnchorPointX>
-                  <se:AnchorPointY>0.5</se:AnchorPointY>
-                </se:AnchorPoint>
-                <se:Displacement>
-                  <se:DisplacementX>7.78</se:DisplacementX>
-                  <se:DisplacementY>7.78</se:DisplacementY>
-                </se:Displacement>
-              </se:PointPlacement>
+              <se:LinePlacement>
+                <se:PerpendicularOffset>11</se:PerpendicularOffset>
+                <se:GeneralizeLine>true</se:GeneralizeLine>
+              </se:LinePlacement>
             </se:LabelPlacement>
             <se:Fill>
-              <se:SvgParameter name="fill">#63a1fd</se:SvgParameter>
+              <se:SvgParameter name="fill">#11a714</se:SvgParameter>
             </se:Fill>
-            <se:VendorOption name="maxDisplacement">12</se:VendorOption>
           </se:TextSymbolizer>
         </se:Rule>
         <se:Rule>
@@ -91,21 +154,14 @@
               <se:SvgParameter name="font-weight">bold</se:SvgParameter>
             </se:Font>
             <se:LabelPlacement>
-              <se:PointPlacement>
-                <se:AnchorPoint>
-                  <se:AnchorPointX>0</se:AnchorPointX>
-                  <se:AnchorPointY>0.5</se:AnchorPointY>
-                </se:AnchorPoint>
-                <se:Displacement>
-                  <se:DisplacementX>9.9</se:DisplacementX>
-                  <se:DisplacementY>9.9</se:DisplacementY>
-                </se:Displacement>
-              </se:PointPlacement>
+              <se:LinePlacement>
+                <se:PerpendicularOffset>14</se:PerpendicularOffset>
+                <se:GeneralizeLine>true</se:GeneralizeLine>
+              </se:LinePlacement>
             </se:LabelPlacement>
             <se:Fill>
-              <se:SvgParameter name="fill">#63a1fd</se:SvgParameter>
+              <se:SvgParameter name="fill">#11a714</se:SvgParameter>
             </se:Fill>
-            <se:VendorOption name="maxDisplacement">15</se:VendorOption>
           </se:TextSymbolizer>
         </se:Rule>
         <se:Rule>
@@ -121,21 +177,14 @@
               <se:SvgParameter name="font-weight">bold</se:SvgParameter>
             </se:Font>
             <se:LabelPlacement>
-              <se:PointPlacement>
-                <se:AnchorPoint>
-                  <se:AnchorPointX>0</se:AnchorPointX>
-                  <se:AnchorPointY>0.5</se:AnchorPointY>
-                </se:AnchorPoint>
-                <se:Displacement>
-                  <se:DisplacementX>14.85</se:DisplacementX>
-                  <se:DisplacementY>14.85</se:DisplacementY>
-                </se:Displacement>
-              </se:PointPlacement>
+              <se:LinePlacement>
+                <se:PerpendicularOffset>21</se:PerpendicularOffset>
+                <se:GeneralizeLine>true</se:GeneralizeLine>
+              </se:LinePlacement>
             </se:LabelPlacement>
             <se:Fill>
-              <se:SvgParameter name="fill">#63a1fd</se:SvgParameter>
+              <se:SvgParameter name="fill">#11a714</se:SvgParameter>
             </se:Fill>
-            <se:VendorOption name="maxDisplacement">22</se:VendorOption>
           </se:TextSymbolizer>
         </se:Rule>
         <se:Rule>
@@ -147,25 +196,18 @@
             </se:Label>
             <se:Font>
               <se:SvgParameter name="font-family">等线</se:SvgParameter>
-              <se:SvgParameter name="font-size">18</se:SvgParameter>
+              <se:SvgParameter name="font-size">16</se:SvgParameter>
               <se:SvgParameter name="font-weight">bold</se:SvgParameter>
             </se:Font>
             <se:LabelPlacement>
-              <se:PointPlacement>
-                <se:AnchorPoint>
-                  <se:AnchorPointX>0</se:AnchorPointX>
-                  <se:AnchorPointY>0.5</se:AnchorPointY>
-                </se:AnchorPoint>
-                <se:Displacement>
-                  <se:DisplacementX>25.46</se:DisplacementX>
-                  <se:DisplacementY>25.46</se:DisplacementY>
-                </se:Displacement>
-              </se:PointPlacement>
+              <se:LinePlacement>
+                <se:PerpendicularOffset>29</se:PerpendicularOffset>
+                <se:GeneralizeLine>true</se:GeneralizeLine>
+              </se:LinePlacement>
             </se:LabelPlacement>
             <se:Fill>
-              <se:SvgParameter name="fill">#63a1fd</se:SvgParameter>
+              <se:SvgParameter name="fill">#11a714</se:SvgParameter>
             </se:Fill>
-            <se:VendorOption name="maxDisplacement">37</se:VendorOption>
           </se:TextSymbolizer>
         </se:Rule>
         <se:Rule>
@@ -177,25 +219,18 @@
             </se:Label>
             <se:Font>
               <se:SvgParameter name="font-family">等线</se:SvgParameter>
-              <se:SvgParameter name="font-size">21</se:SvgParameter>
+              <se:SvgParameter name="font-size">18</se:SvgParameter>
               <se:SvgParameter name="font-weight">bold</se:SvgParameter>
             </se:Font>
             <se:LabelPlacement>
-              <se:PointPlacement>
-                <se:AnchorPoint>
-                  <se:AnchorPointX>0</se:AnchorPointX>
-                  <se:AnchorPointY>0.5</se:AnchorPointY>
-                </se:AnchorPoint>
-                <se:Displacement>
-                  <se:DisplacementX>30.41</se:DisplacementX>
-                  <se:DisplacementY>30.41</se:DisplacementY>
-                </se:Displacement>
-              </se:PointPlacement>
+              <se:LinePlacement>
+                <se:PerpendicularOffset>36</se:PerpendicularOffset>
+                <se:GeneralizeLine>true</se:GeneralizeLine>
+              </se:LinePlacement>
             </se:LabelPlacement>
             <se:Fill>
-              <se:SvgParameter name="fill">#63a1fd</se:SvgParameter>
+              <se:SvgParameter name="fill">#11a714</se:SvgParameter>
             </se:Fill>
-            <se:VendorOption name="maxDisplacement">44</se:VendorOption>
           </se:TextSymbolizer>
         </se:Rule>
         <se:Rule>
@@ -206,25 +241,18 @@
             </se:Label>
             <se:Font>
               <se:SvgParameter name="font-family">等线</se:SvgParameter>
-              <se:SvgParameter name="font-size">25</se:SvgParameter>
+              <se:SvgParameter name="font-size">20</se:SvgParameter>
               <se:SvgParameter name="font-weight">bold</se:SvgParameter>
             </se:Font>
             <se:LabelPlacement>
-              <se:PointPlacement>
-                <se:AnchorPoint>
-                  <se:AnchorPointX>0</se:AnchorPointX>
-                  <se:AnchorPointY>0.5</se:AnchorPointY>
-                </se:AnchorPoint>
-                <se:Displacement>
-                  <se:DisplacementX>35.36</se:DisplacementX>
-                  <se:DisplacementY>35.36</se:DisplacementY>
-                </se:Displacement>
-              </se:PointPlacement>
+              <se:LinePlacement>
+                <se:PerpendicularOffset>43</se:PerpendicularOffset>
+                <se:GeneralizeLine>true</se:GeneralizeLine>
+              </se:LinePlacement>
             </se:LabelPlacement>
             <se:Fill>
-              <se:SvgParameter name="fill">#63a1fd</se:SvgParameter>
+              <se:SvgParameter name="fill">#11a714</se:SvgParameter>
             </se:Fill>
-            <se:VendorOption name="maxDisplacement">51</se:VendorOption>
           </se:TextSymbolizer>
         </se:Rule>
       </se:FeatureTypeStyle>
