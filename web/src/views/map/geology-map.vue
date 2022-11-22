@@ -1,4 +1,4 @@
-<!-- 地质一张图 -->
+<!-- 规划一张图 -->
 <template>
   <div id="map">
     <!-- 图层与标绘工具 -->
@@ -6,6 +6,8 @@
       :selecttc="selecttc"
       :selectbh="selectbh"
       :layersData="layersData"
+      :defaultExpandedKeys="defaultExpandedKeys"
+      :defaultCheckedKeys="defaultCheckedKeys"
       @clicktc="clicktc"
       @clickbh="clickbh"
       @layerTreeClick="layerTreeClick"
@@ -44,6 +46,8 @@
       :tableFeatureName="tableFeatureName"
       @closePopup="closePopup"
     ></PropertyPopup>
+    <!-- 地图图例 -->
+    <!-- <MapLegend :MaplegendImage="MaplegendImage"></MapLegend> -->
   </div>
 </template>
 
@@ -72,6 +76,13 @@ import LayerAndDraw from '@/components/Common/LayerAndDraw'
 import MapTool from '@/components/Common/MapTool'
 import BasemapToggle from '@/components/Common/BasemapToggle'
 import PropertyPopup from '@/components/Common/PropertyPopup'
+import MapLegend from '@/components/Common/MapLegend'
+
+//天地图token
+const tdtoken = '92abf9017d78cd71a3ae51d0874b6578'
+//星图token
+const xttoken =
+  'cec6f2d6a92d3cc95a61b873df5da5ffa1f4d2846fcf61ce384aa91aa0ca0141'
 
 //地图定义
 const map = ref(null)
@@ -84,7 +95,7 @@ let layers = []
 
 //版权信息
 const attributions =
-  '<a href="http://www.xinhuigs.com/" target="_blank">Copyright&nbsp;&nbsp;&nbsp;&copy;&nbsp;&nbsp;2022 &nbsp;&nbsp;&nbsp;Xinhui&nbsp;Group&nbsp;&nbsp;&nbsp;All&nbsp;Rights&nbsp;Reserved.</a> '
+  '<a href="http://www.xinhuigs.com/" target="_blank">&copy;&nbsp;&nbsp;2022&nbsp;&nbsp;Xinhui&nbsp;Group&nbsp;&nbsp;&nbsp;All&nbsp;Rights&nbsp;Reserved.</a> '
 
 //导入
 const jsZip = require('jszip')
@@ -116,197 +127,71 @@ function randomRgbaColor() {
 const layersData = [
   {
     id: 1,
-    label: '水系',
+    label: '1:250万中国地质图',
     layerName: '',
     visible: false,
     children: [
       {
-        id: 11,
-        label: '河流',
-        layerName: 'xhis:water_river',
+        id: 2,
+        label: '地质体面元',
+        layerName: 'xhis:geology_dzt',
         visible: false,
       },
       {
-        id: 12,
-        label: '调水工程',
-        layerName: '',
+        id: 3,
+        label: '地质断层',
+        layerName: 'xhis:geology_dzdc',
         visible: false,
       },
       {
-        id: 13,
-        label: '干渠',
-        layerName: '',
+        id: 4,
+        label: '地质体界线',
+        layerName: 'xhis:geology_jx',
         visible: false,
       },
       {
-        id: 14,
-        label: '支渠',
-        layerName: '',
+        id: 5,
+        label: '兰闪片岩',
+        layerName: 'xhis:geology_lspy',
         visible: false,
       },
       {
-        id: 15,
-        label: '排沟',
-        layerName: '',
+        id: 6,
+        label: '相变界线',
+        layerName: 'xhis:geology_xbjx',
         visible: false,
       },
       {
-        id: 16,
-        label: '水库',
-        layerName: '',
-        visible: false,
-        children: [
-          {
-            id: 41,
-            label: '大中型',
-            layerName: 'xhis:water_reservoir_large',
-            visible: false,
-          },
-          {
-            id: 42,
-            label: '小（Ⅰ）型',
-            layerName: 'xhis:water_reservoir_small1',
-            visible: false,
-          },
-          {
-            id: 43,
-            label: '小（Ⅱ）型',
-            layerName: 'xhis:water_reservoir_small2',
-            visible: false,
-          },
-        ],
-      },
-      // {
-      //   id: 17,
-      //   label: '灌区',
-      //   layerName: '',
-      //visible: false,
-      // },
-      // {
-      //   id: 18,
-      //   label: '沉砂池',
-      //   layerName: '',
-      //visible: false,
-      // },
-    ],
-  },
-  {
-    id: 2,
-    label: '水工建筑物',
-    layerName: '',
-    visible: false,
-    children: [
-      {
-        id: 19,
-        label: '水闸',
-        layerName: '',
-        visible: false,
-        children: [
-          {
-            id: 44,
-            label: '引进水闸',
-            layerName: 'xhis:water_gate_diversion_intake',
-            visible: false,
-          },
-          {
-            id: 45,
-            label: '节制闸',
-            layerName: 'xhis:water_gate_control',
-            visible: false,
-          },
-          {
-            id: 46,
-            label: '分泄洪闸',
-            layerName: 'xhis:water_gate_flood_spill',
-            visible: false,
-          },
-          {
-            id: 47,
-            label: '排退水闸',
-            layerName: 'xhis:water_gate_drain',
-            visible: false,
-          },
-          {
-            id: 48,
-            label: '挡潮闸',
-            layerName: 'xhis:water_gate_tide',
-            visible: false,
-          },
-        ],
-      },
-      {
-        id: 20,
-        label: '橡胶坝',
-        layerName: 'xhis:water_rubber_dam',
+        id: 7,
+        label: '同位素',
+        layerName: 'xhis:geology_tws',
         visible: false,
       },
       {
-        id: 21,
-        label: '泵站',
-        layerName: 'xhis:water_pumping_station',
+        id: 8,
+        label: '钻孔',
+        layerName: 'xhis:geology_zk',
         visible: false,
       },
       {
-        id: 22,
-        label: '涵洞',
-        layerName: '',
-        visible: false,
-      },
-      // {
-      //   id: 23,
-      //   label: '堤防',
-      //   layerName: '',
-      //   visible: false,
-      // },
-    ],
-  },
-  {
-    id: 3,
-    label: '监测站',
-    layerName: '',
-    visible: false,
-    children: [
-      {
-        id: 25,
-        label: '水文站',
-        layerName: 'xhis:water_hydrometrical_station',
+        id: 9,
+        label: '火山口',
+        layerName: 'xhis:geology_hsk',
         visible: false,
       },
       {
-        id: 26,
-        label: '水位站',
-        layerName: '',
-        visible: false,
-      },
-      // {
-      //   id: 27,
-      //   label: '气象站',
-      //   layerName: '',
-      //    visible: false,
-      // },
-    ],
-  },
-  {
-    id: 4,
-    label: '自然事件',
-    layerName: '',
-    visible: false,
-    children: [
-      {
-        id: 27,
-        label: '洪水',
-        layerName: 'xhis:water_flood',
-        visible: false,
-      },
-      {
-        id: 28,
-        label: '台风',
-        layerName: 'xhis:irrigation_wz_e_doumen',
+        id: 10,
+        label: '西北榴辉岩',
+        layerName: 'xhis:geology_xblhy',
         visible: false,
       },
     ],
   },
 ]
+//图层展开id
+const defaultExpandedKeys = '1'
+//图层选择id
+const defaultCheckedKeys = ''
 
 //获取geoserver发布的所有图层，存放于geoserverLayers
 //麻烦，后面改成图层组，CQL过滤图层组
@@ -331,12 +216,13 @@ function getGeoserverLayer(arr) {
               LAYERS: layerArray,
               STYLES: '',
               VERSION: '1.3.0',
-              tiled: true,
+              TILED: true,
             },
             serverType: 'geoserver',
             crossOrigin: 'anonymous',
-            projection: 'EPSG:4548',
+            projection: 'EPSG:4326',
           }),
+          opacity: 0.9,
           visible: layerVisible,
         })
         geoserverLayers.push(layer)
@@ -351,7 +237,9 @@ layers = layers.concat(geoserverLayers)
 const tdcvaLayer = new TileLayer({
   title: '天地图注记',
   source: new XYZ({
-    url: 'http://t0.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=9970c29ec3f3482ac1448cd57b16685d',
+    url:
+      'http://t5.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
     //wrapX: false,
     attributions: attributions,
     crossOrigin: 'anonymous',
@@ -363,7 +251,9 @@ layers.unshift(tdcvaLayer)
 const tdvecLayer = new TileLayer({
   title: '天地图矢量',
   source: new XYZ({
-    url: 'http://t0.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=9970c29ec3f3482ac1448cd57b16685d',
+    url:
+      'http://t5.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
     //wrapX: false,
     attributions: attributions,
     crossOrigin: 'anonymous',
@@ -375,7 +265,9 @@ layers.unshift(tdvecLayer)
 const tdimgLayer = new TileLayer({
   title: '天地图影像',
   source: new XYZ({
-    url: 'http://t0.tianditu.com/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=9970c29ec3f3482ac1448cd57b16685d',
+    url:
+      'http://t5.tianditu.com/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
     //wrapX: false,
     attributions: attributions,
     crossOrigin: 'anonymous',
@@ -388,7 +280,9 @@ layers.unshift(tdimgLayer)
 const tdterLayer = new TileLayer({
   title: '天地图地形',
   source: new XYZ({
-    url: 'http://t0.tianditu.com/DataServer?T=ter_w&x={x}&y={y}&l={z}&tk=9970c29ec3f3482ac1448cd57b16685d',
+    url:
+      'http://t5.tianditu.com/DataServer?T=ter_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
     //wrapX: false,
     attributions: attributions,
     crossOrigin: 'anonymous',
@@ -396,29 +290,88 @@ const tdterLayer = new TileLayer({
   visible: false,
 })
 layers.unshift(tdterLayer)
-//OSM图层
-const osmLayer = new TileLayer({
-  title: 'OSM地图',
-  source: new OSM({
+//星图矢量图层
+const xtvecLayer = new TileLayer({
+  title: '星图矢量',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/vec/{z}/{x}/{y}?format=png&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
     attributions: attributions,
+    crossOrigin: 'anonymous',
+    maxZoom: 16,
   }),
   visible: false,
 })
-layers.unshift(osmLayer)
+layers.unshift(xtvecLayer)
+//星图影像注记
+const xtciaLayer = new TileLayer({
+  title: '星图影像注记',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/cia/{z}/{x}/{y}?format=png&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+  }),
+  visible: false,
+})
+layers.unshift(xtciaLayer)
+//星图影像图层
+const xtimgLayer = new TileLayer({
+  title: '星图影像',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/img/{z}/{x}/{y}?format=webp&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+    maxZoom: 18,
+  }),
+  visible: false,
+})
+layers.unshift(xtimgLayer)
+//星图地形
+const xtterLayer = new TileLayer({
+  title: '星图地形',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/ter/{z}/{x}/{y}?format=png&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+    maxZoom: 11,
+  }),
+  visible: false,
+})
+layers.unshift(xtterLayer)
+//OSM图层,国内网络无法加载
+// const osmLayer = new TileLayer({
+//   title: 'OSM地图',
+//   source: new OSM({
+//     attributions: attributions,
+//   }),
+//   visible: false,
+// })
+// layers.unshift(osmLayer)
 
 const wmsSource = new TileWMS({
   //不能设置为0，否则地图不展示。
   //ratio: 1,
   url: 'http://192.168.188.8:8086/geoserver/xhis/wms',
   params: {
-    LAYERS: 'xhis:map_water',
+    LAYERS: 'xhis:map_geology',
     STYLES: '',
     VERSION: '1.3.0',
     //tiled: true,
   },
   serverType: 'geoserver',
   crossOrigin: 'anonymous',
-  projection: 'EPSG:4548',
+  projection: 'EPSG:4326',
 })
 
 const wmsLayer = new TileLayer({
@@ -441,12 +394,6 @@ function clickbh() {
   document.getElementById('layer-card').style.display = 'none'
   document.getElementById('draw-card').style.display = 'block'
 }
-
-//图层过滤
-// function filterNode(value, data) {
-//   if (!value) return true
-//   return data.label.includes(value)
-// }
 
 /* 图层控制 */
 function layerTreeClick(data, check) {
@@ -533,13 +480,22 @@ function initMap() {
           tipLabel: '鹰眼',
           layers: [
             new TileLayer({
-              source: new OSM(),
+              title: '星图地球矢量',
+              source: new XYZ({
+                url:
+                  'https://tiles1.geovisearth.com/base/v1/vec/{z}/{x}/{y}?format=png&tmsIds=w&token=' +
+                  xttoken,
+                //wrapX: false,
+                attributions: attributions,
+                crossOrigin: 'anonymous',
+              }),
             }),
           ],
         }), //鹰眼控件
         new control.Attribution({
           collapsed: false,
         }), //版权信息不可折叠
+        //new control.MousePosition({}), //鼠标位置坐标
       ]),
     interactions: defaultInteractions({
       // altShiftDragRotate: true, //是否需要 Alt-Shift-drag 旋转
@@ -607,7 +563,7 @@ function getClickInfo() {
           propertyTableData.value.length = 0
           popupInfo = JSON.parse(json)
           propertiesInfo = popupInfo.features[0].properties
-          tableFeatureName.value = popupInfo.features[0].properties.名称
+          tableFeatureName.value = popupInfo.features[0].properties.name
           for (let [key, value] of Object.entries(propertiesInfo)) {
             newArray = { key: key, value: value }
             propertyTableData.value.push(newArray)
@@ -629,11 +585,11 @@ function getClickInfo() {
       return
     }
     //方法有问题，只有最后一个图层有效
-    for (let i = 0; i < geoserverLayers.length; i++) {
-      let data = geoserverLayers[i].getData(evt.pixel)
-      let hit = data && data[3] > 0 // transparent pixels have zero for data[3]
-      map.value.getTargetElement().style.cursor = hit ? 'pointer' : ''
-    }
+    // for (let i = 0; i < geoserverLayers.length; i++) {
+    let data = geoserverLayers[1].getData(evt.pixel)
+    let hit = data && data[3] > 0 // transparent pixels have zero for data[3]
+    map.value.getTargetElement().style.cursor = hit ? 'pointer' : ''
+    // }
   })
 }
 
@@ -1307,7 +1263,10 @@ function basemapToggle(index) {
       tdvecLayer.setVisible(true)
       tdimgLayer.setVisible(false)
       tdterLayer.setVisible(false)
-      osmLayer.setVisible(false)
+      xtvecLayer.setVisible(false)
+      xtciaLayer.setVisible(false)
+      xtimgLayer.setVisible(false)
+      xtterLayer.setVisible(false)
       break
     case 2:
       basemapImage.value = '天地图影像'
@@ -1315,7 +1274,10 @@ function basemapToggle(index) {
       tdvecLayer.setVisible(false)
       tdimgLayer.setVisible(true)
       tdterLayer.setVisible(false)
-      osmLayer.setVisible(false)
+      xtvecLayer.setVisible(false)
+      xtciaLayer.setVisible(false)
+      xtimgLayer.setVisible(false)
+      xtterLayer.setVisible(false)
       break
     case 3:
       basemapImage.value = '天地图地形'
@@ -1323,18 +1285,49 @@ function basemapToggle(index) {
       tdvecLayer.setVisible(false)
       tdimgLayer.setVisible(false)
       tdterLayer.setVisible(true)
-      osmLayer.setVisible(false)
+      xtvecLayer.setVisible(false)
+      xtciaLayer.setVisible(false)
+      xtimgLayer.setVisible(false)
+      xtterLayer.setVisible(false)
       break
     case 4:
-      basemapImage.value = 'OSM地图'
+      basemapImage.value = '星图矢量'
       tdcvaLayer.setVisible(false)
       tdvecLayer.setVisible(false)
       tdimgLayer.setVisible(false)
       tdterLayer.setVisible(false)
-      osmLayer.setVisible(true)
+      xtvecLayer.setVisible(true)
+      xtciaLayer.setVisible(false)
+      xtimgLayer.setVisible(false)
+      xtterLayer.setVisible(false)
+      break
+    case 5:
+      basemapImage.value = '星图影像'
+      tdcvaLayer.setVisible(false)
+      tdvecLayer.setVisible(false)
+      tdimgLayer.setVisible(false)
+      tdterLayer.setVisible(false)
+      xtvecLayer.setVisible(false)
+      xtciaLayer.setVisible(true)
+      xtimgLayer.setVisible(true)
+      xtterLayer.setVisible(false)
+      break
+    case 6:
+      basemapImage.value = '星图地形'
+      tdcvaLayer.setVisible(false)
+      tdvecLayer.setVisible(false)
+      tdimgLayer.setVisible(false)
+      tdterLayer.setVisible(false)
+      xtvecLayer.setVisible(false)
+      xtciaLayer.setVisible(true)
+      xtimgLayer.setVisible(false)
+      xtterLayer.setVisible(true)
       break
   }
 }
+
+/* 地图图例 */
+const MaplegendImage = require(`@/assets/images/MapLegend/geology-china.png`)
 
 onMounted(() => {
   initMap()

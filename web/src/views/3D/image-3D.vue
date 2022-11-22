@@ -180,16 +180,16 @@ const modelLngLatDeg = {
     height: 4934,
   },
   JiNing_BaiMaHe: {
-    longitude: '117.198',
-    latitude: '35.615',
-    height: 10000,
+    longitude: '116.86611',
+    latitude: '35.28545',
+    height: 38267,
   },
   JiNing_GuangFuHe: {
     longitude: '116.68265',
     latitude: '35.48729',
     height: 40277,
   },
-  JiNing_SiHe: { longitude: '116.6764', latitude: '35.243', height: 10000 },
+  JiNing_SiHe: { longitude: '117.06342', latitude: '35.53429', height: 72874 },
 }
 //折叠展开数据详细描述
 const arrowStyle = ref('ArrowDownBold') //箭头类型

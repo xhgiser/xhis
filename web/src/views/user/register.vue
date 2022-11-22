@@ -16,7 +16,7 @@
         <el-form-item label="请输入用户账号:" prop="username">
           <el-input
             v-model="userInfo.username"
-            placeholder="用户姓名全拼"
+            placeholder="用户姓名全拼 未按要求将被禁用"
             clearable
           />
         </el-form-item>
@@ -24,7 +24,7 @@
         <el-form-item label="请输入用户初始密码:" prop="password">
           <el-input
             v-model="userInfo.password"
-            placeholder="3~15位   默认123456"
+            placeholder="3~15位"
             clearable
           />
         </el-form-item>
@@ -53,8 +53,8 @@
 
         <el-form-item label="请选择用户类型:" prop="user_type">
           <el-select v-model="userInfo.user_type" placeholder="请选择">
-            <el-option label="超级管理员" value="1" />
-            <el-option label="管理员" value="2" />
+            <!-- <el-option label="超级管理员" value="1" />
+            <el-option label="管理员" value="2" /> -->
             <el-option label="普通用户" value="3" />
           </el-select>
         </el-form-item>
@@ -70,7 +70,7 @@
           type="warning"
           plain
           class="register_submit go-login-btn"
-          @click="toGo"
+          @click="onLogin"
           >注册完成,点击跳转登录页面</el-button
         >
       </el-form>
@@ -143,15 +143,15 @@ const getRegisterData = async () => {
       message: '注册成功！',
       type: 'success',
     })
-    //router.push('/login')
-    location.reload()
+    router.push('/login')
+    //location.reload()
   }
 }
 
 /**
  * 跳转去登录页面
  */
-const toGo = () => {
+const onLogin = () => {
   router.push('/login')
 }
 </script>
@@ -228,6 +228,10 @@ const toGo = () => {
 
       .go-login-btn {
         margin-left: 0px;
+      }
+
+      :deep(el-select-dropdown__item) {
+        padding-right: 20px;
       }
     }
   }

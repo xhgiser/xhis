@@ -8,13 +8,14 @@
       :default-active="activeIndex"
       text-color="#fff"
       @select="handleSelect"
+      unique-opened="true"
     >
       <template v-for="(item, index) in itemList">
         <template v-if="item.children">
           <el-sub-menu :index="item.title" :key="index">
             <template #title>
               <el-icon><Grid /></el-icon>
-              <span>{{ item.title }}</span>
+              <span style="font-weight: 600">{{ item.title }}</span>
             </template>
 
             <el-menu-item

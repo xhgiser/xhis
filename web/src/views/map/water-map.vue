@@ -6,6 +6,8 @@
       :selecttc="selecttc"
       :selectbh="selectbh"
       :layersData="layersData"
+      :defaultExpandedKeys="defaultExpandedKeys"
+      :defaultCheckedKeys="defaultCheckedKeys"
       @clicktc="clicktc"
       @clickbh="clickbh"
       @layerTreeClick="layerTreeClick"
@@ -90,7 +92,7 @@ let layers = []
 
 //版权信息
 const attributions =
-  '<a href="http://www.xinhuigs.com/" target="_blank">Copyright&nbsp;&nbsp;&nbsp;&copy;&nbsp;&nbsp;2022 &nbsp;&nbsp;&nbsp;Xinhui&nbsp;Group&nbsp;&nbsp;&nbsp;All&nbsp;Rights&nbsp;Reserved.</a> '
+  '<a href="http://www.xinhuigs.com/" target="_blank">&copy;&nbsp;&nbsp;2022&nbsp;&nbsp;Xinhui&nbsp;Group&nbsp;&nbsp;&nbsp;All&nbsp;Rights&nbsp;Reserved.</a> '
 
 //导入
 const jsZip = require('jszip')
@@ -137,24 +139,28 @@ const layersData = [
         label: '调水工程',
         layerName: '',
         visible: false,
+        disabled: true,
       },
       {
         id: 13,
         label: '干渠',
         layerName: '',
         visible: false,
+        disabled: true,
       },
       {
         id: 14,
         label: '支渠',
         layerName: '',
         visible: false,
+        disabled: true,
       },
       {
         id: 15,
         label: '排沟',
         layerName: '',
         visible: false,
+        disabled: true,
       },
       {
         id: 16,
@@ -163,19 +169,19 @@ const layersData = [
         visible: false,
         children: [
           {
-            id: 41,
+            id: 161,
             label: '大中型',
             layerName: 'xhis:water_reservoir_large',
             visible: false,
           },
           {
-            id: 42,
+            id: 162,
             label: '小（Ⅰ）型',
             layerName: 'xhis:water_reservoir_small1',
             visible: false,
           },
           {
-            id: 43,
+            id: 163,
             label: '小（Ⅱ）型',
             layerName: 'xhis:water_reservoir_small2',
             visible: false,
@@ -203,60 +209,61 @@ const layersData = [
     visible: false,
     children: [
       {
-        id: 19,
+        id: 21,
         label: '水闸',
         layerName: '',
         visible: false,
         children: [
           {
-            id: 44,
-            label: '引进水闸',
-            layerName: 'xhis:water_gate_diversion_intake',
-            visible: false,
-          },
-          {
-            id: 45,
-            label: '节制闸',
-            layerName: 'xhis:water_gate_control',
-            visible: false,
-          },
-          {
-            id: 46,
-            label: '分泄洪闸',
-            layerName: 'xhis:water_gate_flood_spill',
-            visible: false,
-          },
-          {
-            id: 47,
-            label: '排退水闸',
-            layerName: 'xhis:water_gate_drain',
-            visible: false,
-          },
-          {
-            id: 48,
+            id: 211,
             label: '挡潮闸',
-            layerName: 'xhis:water_gate_tide',
+            layerName: 'xhis:water_gate_dcz',
+            visible: false,
+          },
+          {
+            id: 212,
+            label: '分泄洪闸',
+            layerName: 'xhis:water_gate_fxhz',
+            visible: false,
+          },
+          {
+            id: 213,
+            label: '节制闸',
+            layerName: 'xhis:water_gate_jzz',
+            visible: false,
+          },
+          {
+            id: 214,
+            label: '排退水闸',
+            layerName: 'xhis:water_gate_ptsz',
+            visible: false,
+          },
+          {
+            id: 215,
+            label: '引进水闸',
+            layerName: 'xhis:water_gate_yjsz',
             visible: false,
           },
         ],
       },
       {
-        id: 20,
+        id: 22,
         label: '橡胶坝',
         layerName: 'xhis:water_rubber_dam',
         visible: false,
       },
       {
-        id: 21,
+        id: 23,
         label: '泵站',
-        layerName: 'xhis:water_pumping_station',
+        layerName: 'xhis:water_pump_station',
         visible: false,
       },
       {
-        id: 22,
+        id: 24,
         label: '涵洞',
         layerName: '',
         visible: false,
+        disabled: true,
       },
       // {
       //   id: 23,
@@ -273,16 +280,17 @@ const layersData = [
     visible: false,
     children: [
       {
-        id: 25,
+        id: 31,
         label: '水文站',
-        layerName: 'xhis:water_hydrometrical_station',
+        layerName: 'xhis:water_hydrology_station',
         visible: false,
       },
       {
-        id: 26,
+        id: 32,
         label: '水位站',
         layerName: '',
         visible: false,
+        disabled: true,
       },
       // {
       //   id: 27,
@@ -299,20 +307,25 @@ const layersData = [
     visible: false,
     children: [
       {
-        id: 27,
+        id: 41,
         label: '洪水',
         layerName: 'xhis:water_flood',
         visible: false,
       },
       {
-        id: 28,
+        id: 42,
         label: '台风',
-        layerName: 'xhis:irrigation_wz_e_doumen',
+        layerName: '',
         visible: false,
+        disabled: true,
       },
     ],
   },
 ]
+//图层展开id
+const defaultExpandedKeys = '1, 2, 3, 4, 16, 21'
+//图层选择id
+const defaultCheckedKeys = ''
 
 //获取geoserver发布的所有图层，存放于geoserverLayers
 //麻烦，后面改成图层组，CQL过滤图层组
@@ -337,12 +350,13 @@ function getGeoserverLayer(arr) {
               LAYERS: layerArray,
               STYLES: '',
               VERSION: '1.3.0',
-              tiled: true,
+              TILED: true,
             },
             serverType: 'geoserver',
             crossOrigin: 'anonymous',
             projection: 'EPSG:4548',
           }),
+          opacity: 1,
           visible: layerVisible,
         })
         geoserverLayers.push(layer)
@@ -602,7 +616,9 @@ function initMap() {
             new TileLayer({
               title: '星图地球矢量',
               source: new XYZ({
-                url: 'https://tiles1.geovisearth.com/base/v1/vec/{z}/{x}/{y}?format=png&tmsIds=w&token=cec6f2d6a92d3cc95a61b873df5da5ffa1f4d2846fcf61ce384aa91aa0ca0141',
+                url:
+                  'https://tiles1.geovisearth.com/base/v1/vec/{z}/{x}/{y}?format=png&tmsIds=w&token=' +
+                  xttoken,
                 //wrapX: false,
                 attributions: attributions,
                 crossOrigin: 'anonymous',

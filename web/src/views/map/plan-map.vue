@@ -6,6 +6,8 @@
       :selecttc="selecttc"
       :selectbh="selectbh"
       :layersData="layersData"
+      :defaultExpandedKeys="defaultExpandedKeys"
+      :defaultCheckedKeys="defaultCheckedKeys"
       @clicktc="clicktc"
       @clickbh="clickbh"
       @layerTreeClick="layerTreeClick"
@@ -44,6 +46,8 @@
       :tableFeatureName="tableFeatureName"
       @closePopup="closePopup"
     ></PropertyPopup>
+    <!-- 地图图例 -->
+    <MapLegend :MaplegendImage="MaplegendImage"></MapLegend>
   </div>
 </template>
 
@@ -72,6 +76,13 @@ import LayerAndDraw from '@/components/Common/LayerAndDraw'
 import MapTool from '@/components/Common/MapTool'
 import BasemapToggle from '@/components/Common/BasemapToggle'
 import PropertyPopup from '@/components/Common/PropertyPopup'
+import MapLegend from '@/components/Common/MapLegend'
+
+//天地图token
+const tdtoken = '92abf9017d78cd71a3ae51d0874b6578'
+//星图token
+const xttoken =
+  'cec6f2d6a92d3cc95a61b873df5da5ffa1f4d2846fcf61ce384aa91aa0ca0141'
 
 //地图定义
 const map = ref(null)
@@ -84,7 +95,7 @@ let layers = []
 
 //版权信息
 const attributions =
-  '<a href="http://www.xinhuigs.com/" target="_blank">Copyright&nbsp;&nbsp;&nbsp;&copy;&nbsp;&nbsp;2022 &nbsp;&nbsp;&nbsp;Xinhui&nbsp;Group&nbsp;&nbsp;&nbsp;All&nbsp;Rights&nbsp;Reserved.</a> '
+  '<a href="http://www.xinhuigs.com/" target="_blank">&copy;&nbsp;&nbsp;2022&nbsp;&nbsp;Xinhui&nbsp;Group&nbsp;&nbsp;&nbsp;All&nbsp;Rights&nbsp;Reserved.</a> '
 
 //导入
 const jsZip = require('jszip')
@@ -116,197 +127,293 @@ function randomRgbaColor() {
 const layersData = [
   {
     id: 1,
-    label: '水系',
+    label: '国土调查土地利用',
     layerName: '',
     visible: false,
     children: [
       {
+        id: 2,
+        label: '采矿用地',
+        layerName: 'xhis:plan_gtdc_ckyd',
+        visible: false,
+      },
+      {
+        id: 3,
+        label: '城镇村道路用地',
+        layerName: 'xhis:plan_gtdc_czcdlyd',
+        visible: false,
+      },
+      {
+        id: 4,
+        label: '城镇住宅用地',
+        layerName: 'xhis:plan_gtdc_czzzyd',
+        visible: false,
+      },
+      {
+        id: 5,
+        label: '干渠',
+        layerName: 'xhis:plan_gtdc_ganq',
+        visible: false,
+      },
+      {
+        id: 6,
+        label: '港口码头用地',
+        layerName: 'xhis:plan_gtdc_gkmtyd',
+        visible: false,
+      },
+      {
+        id: 7,
+        label: '高教用地',
+        layerName: 'xhis:plan_gtdc_gjyd',
+        visible: false,
+      },
+      {
+        id: 8,
+        label: '工业用地',
+        layerName: 'xhis:plan_gtdc_gyyd',
+        visible: false,
+      },
+      {
+        id: 9,
+        label: '公路用地',
+        layerName: 'xhis:plan_gtdc_glyd',
+        visible: false,
+      },
+      {
+        id: 10,
+        label: '公用设施用地',
+        layerName: 'xhis:plan_gtdc_gyssyd',
+        visible: false,
+      },
+      {
         id: 11,
-        label: '河流',
-        layerName: 'xhis:water_river',
+        label: '公园与绿地',
+        layerName: 'xhis:plan_gtdc_gyyld',
         visible: false,
       },
       {
         id: 12,
-        label: '调水工程',
-        layerName: '',
+        label: '沟渠',
+        layerName: 'xhis:plan_gtdc_gouq',
         visible: false,
       },
       {
         id: 13,
-        label: '干渠',
-        layerName: '',
+        label: '管道运输用地',
+        layerName: 'xhis:plan_gtdc_gdysyd',
         visible: false,
       },
       {
         id: 14,
-        label: '支渠',
-        layerName: '',
+        label: '灌木林地',
+        layerName: 'xhis:plan_gtdc_gmld',
         visible: false,
       },
       {
         id: 15,
-        label: '排沟',
-        layerName: '',
+        label: '广场用地',
+        layerName: 'xhis:plan_gtdc_gcyd',
         visible: false,
       },
       {
         id: 16,
-        label: '水库',
-        layerName: '',
+        label: '果园',
+        layerName: 'xhis:plan_gtdc_gy',
         visible: false,
-        children: [
-          {
-            id: 41,
-            label: '大中型',
-            layerName: 'xhis:water_reservoir_large',
-            visible: false,
-          },
-          {
-            id: 42,
-            label: '小（Ⅰ）型',
-            layerName: 'xhis:water_reservoir_small1',
-            visible: false,
-          },
-          {
-            id: 43,
-            label: '小（Ⅱ）型',
-            layerName: 'xhis:water_reservoir_small2',
-            visible: false,
-          },
-        ],
       },
-      // {
-      //   id: 17,
-      //   label: '灌区',
-      //   layerName: '',
-      //visible: false,
-      // },
-      // {
-      //   id: 18,
-      //   label: '沉砂池',
-      //   layerName: '',
-      //visible: false,
-      // },
-    ],
-  },
-  {
-    id: 2,
-    label: '水工建筑物',
-    layerName: '',
-    visible: false,
-    children: [
+      {
+        id: 17,
+        label: '旱地',
+        layerName: 'xhis:plan_gtdc_hd',
+        visible: false,
+      },
+      {
+        id: 18,
+        label: '河流水面',
+        layerName: 'xhis:plan_gtdc_hlsm',
+        visible: false,
+      },
       {
         id: 19,
-        label: '水闸',
-        layerName: '',
+        label: '机场用地',
+        layerName: 'xhis:plan_gtdc_jcyd',
         visible: false,
-        children: [
-          {
-            id: 44,
-            label: '引进水闸',
-            layerName: 'xhis:water_gate_diversion_intake',
-            visible: false,
-          },
-          {
-            id: 45,
-            label: '节制闸',
-            layerName: 'xhis:water_gate_control',
-            visible: false,
-          },
-          {
-            id: 46,
-            label: '分泄洪闸',
-            layerName: 'xhis:water_gate_flood_spill',
-            visible: false,
-          },
-          {
-            id: 47,
-            label: '排退水闸',
-            layerName: 'xhis:water_gate_drain',
-            visible: false,
-          },
-          {
-            id: 48,
-            label: '挡潮闸',
-            layerName: 'xhis:water_gate_tide',
-            visible: false,
-          },
-        ],
       },
       {
         id: 20,
-        label: '橡胶坝',
-        layerName: 'xhis:water_rubber_dam',
+        label: '机关团体新闻出版用地',
+        layerName: 'xhis:plan_gtdc_jgttxwcbyd',
         visible: false,
       },
       {
         id: 21,
-        label: '泵站',
-        layerName: 'xhis:water_pumping_station',
+        label: '交通服务场站用地',
+        layerName: 'xhis:plan_gtdc_jtfwczyd',
         visible: false,
       },
       {
         id: 22,
-        label: '涵洞',
-        layerName: '',
+        label: '科教文卫用地',
+        layerName: 'xhis:plan_gtdc_kjwwyd',
         visible: false,
       },
-      // {
-      //   id: 23,
-      //   label: '堤防',
-      //   layerName: '',
-      //   visible: false,
-      // },
-    ],
-  },
-  {
-    id: 3,
-    label: '监测站',
-    layerName: '',
-    visible: false,
-    children: [
+      {
+        id: 23,
+        label: '可调整人工牧草地',
+        layerName: 'xhis:plan_gtdc_ktzrgmcd',
+        visible: false,
+      },
+      {
+        id: 24,
+        label: '坑塘水面',
+        layerName: 'xhis:plan_gtdc_ktsm',
+        visible: false,
+      },
       {
         id: 25,
-        label: '水文站',
-        layerName: 'xhis:water_hydrometrical_station',
+        label: '空闲地',
+        layerName: 'xhis:plan_gtdc_kxd',
         visible: false,
       },
       {
         id: 26,
-        label: '水位站',
-        layerName: '',
+        label: '裸土地',
+        layerName: 'xhis:plan_gtdc_ltd',
         visible: false,
       },
-      // {
-      //   id: 27,
-      //   label: '气象站',
-      //   layerName: '',
-      //    visible: false,
-      // },
-    ],
-  },
-  {
-    id: 4,
-    label: '自然事件',
-    layerName: '',
-    visible: false,
-    children: [
       {
         id: 27,
-        label: '洪水',
-        layerName: 'xhis:water_flood',
+        label: '内陆滩涂',
+        layerName: 'xhis:plan_gtdc_nltt',
         visible: false,
       },
       {
         id: 28,
-        label: '台风',
-        layerName: 'xhis:irrigation_wz_e_doumen',
+        label: '农村道路',
+        layerName: 'xhis:plan_gtdc_ncdl',
+        visible: false,
+      },
+      {
+        id: 29,
+        label: '农村宅基地',
+        layerName: 'xhis:plan_gtdc_nczjd',
+        visible: false,
+      },
+      {
+        id: 30,
+        label: '其他草地',
+        layerName: 'xhis:plan_gtdc_qtcd',
+        visible: false,
+      },
+      {
+        id: 31,
+        label: '其他林地',
+        layerName: 'xhis:plan_gtdc_qtld',
+        visible: false,
+      },
+      {
+        id: 32,
+        label: '其他园地',
+        layerName: 'xhis:plan_gtdc_qtyd',
+        visible: false,
+      },
+      {
+        id: 33,
+        label: '乔木林地',
+        layerName: 'xhis:plan_gtdc_qmld',
+        visible: false,
+      },
+      {
+        id: 34,
+        label: '人工牧草地',
+        layerName: 'xhis:plan_gtdc_rgmcd',
+        visible: false,
+      },
+      {
+        id: 35,
+        label: '商业服务业设施用地',
+        layerName: 'xhis:plan_gtdc_syfwyssyd',
+        visible: false,
+      },
+      {
+        id: 36,
+        label: '设施农用地',
+        layerName: 'xhis:plan_gtdc_ssnyd',
+        visible: false,
+      },
+      {
+        id: 37,
+        label: '水工建筑用地',
+        layerName: 'xhis:plan_gtdc_sgjzyd',
+        visible: false,
+      },
+      {
+        id: 38,
+        label: '水浇地',
+        layerName: 'xhis:plan_gtdc_sjd',
+        visible: false,
+      },
+      {
+        id: 39,
+        label: '水库水面',
+        layerName: 'xhis:plan_gtdc_sksm',
+        visible: false,
+      },
+      {
+        id: 40,
+        label: '水田',
+        layerName: 'xhis:plan_gtdc_st',
+        visible: false,
+      },
+      {
+        id: 41,
+        label: '特殊用地',
+        layerName: 'xhis:plan_gtdc_tsyd',
+        visible: false,
+      },
+      {
+        id: 42,
+        label: '铁路用地',
+        layerName: 'xhis:plan_gtdc_tlyd',
+        visible: false,
+      },
+      {
+        id: 43,
+        label: '物流仓储用地',
+        layerName: 'xhis:plan_gtdc_wlccyd',
+        visible: false,
+      },
+      {
+        id: 44,
+        label: '沿海滩涂',
+        layerName: 'xhis:plan_gtdc_yhtt',
+        visible: false,
+      },
+      {
+        id: 45,
+        label: '盐碱地',
+        layerName: 'xhis:plan_gtdc_yjd',
+        visible: false,
+      },
+      {
+        id: 46,
+        label: '盐田',
+        layerName: 'xhis:plan_gtdc_yt',
+        visible: false,
+      },
+      {
+        id: 47,
+        label: '养殖坑塘',
+        layerName: 'xhis:plan_gtdc_yzkt',
         visible: false,
       },
     ],
   },
 ]
+//图层展开id
+const defaultExpandedKeys = '1'
+//图层选择id
+const defaultCheckedKeys = ''
 
 //获取geoserver发布的所有图层，存放于geoserverLayers
 //麻烦，后面改成图层组，CQL过滤图层组
@@ -331,12 +438,13 @@ function getGeoserverLayer(arr) {
               LAYERS: layerArray,
               STYLES: '',
               VERSION: '1.3.0',
-              tiled: true,
+              TILED: true,
             },
             serverType: 'geoserver',
             crossOrigin: 'anonymous',
-            projection: 'EPSG:4548',
+            projection: 'EPSG:4527',
           }),
+          opacity: 0.7,
           visible: layerVisible,
         })
         geoserverLayers.push(layer)
@@ -351,7 +459,9 @@ layers = layers.concat(geoserverLayers)
 const tdcvaLayer = new TileLayer({
   title: '天地图注记',
   source: new XYZ({
-    url: 'http://t0.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=9970c29ec3f3482ac1448cd57b16685d',
+    url:
+      'http://t5.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
     //wrapX: false,
     attributions: attributions,
     crossOrigin: 'anonymous',
@@ -363,11 +473,12 @@ layers.unshift(tdcvaLayer)
 const tdvecLayer = new TileLayer({
   title: '天地图矢量',
   source: new XYZ({
-    url: 'http://t0.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=9970c29ec3f3482ac1448cd57b16685d',
+    url:
+      'http://t5.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
     //wrapX: false,
     attributions: attributions,
     crossOrigin: 'anonymous',
-    maxZoom: 18,
   }),
   visible: true,
 })
@@ -376,7 +487,9 @@ layers.unshift(tdvecLayer)
 const tdimgLayer = new TileLayer({
   title: '天地图影像',
   source: new XYZ({
-    url: 'http://t0.tianditu.com/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=9970c29ec3f3482ac1448cd57b16685d',
+    url:
+      'http://t5.tianditu.com/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
     //wrapX: false,
     attributions: attributions,
     crossOrigin: 'anonymous',
@@ -389,7 +502,9 @@ layers.unshift(tdimgLayer)
 const tdterLayer = new TileLayer({
   title: '天地图地形',
   source: new XYZ({
-    url: 'http://t0.tianditu.com/DataServer?T=ter_w&x={x}&y={y}&l={z}&tk=9970c29ec3f3482ac1448cd57b16685d',
+    url:
+      'http://t5.tianditu.com/DataServer?T=ter_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
     //wrapX: false,
     attributions: attributions,
     crossOrigin: 'anonymous',
@@ -397,29 +512,88 @@ const tdterLayer = new TileLayer({
   visible: false,
 })
 layers.unshift(tdterLayer)
-//OSM图层
-const osmLayer = new TileLayer({
-  title: 'OSM地图',
-  source: new OSM({
+//星图矢量图层
+const xtvecLayer = new TileLayer({
+  title: '星图矢量',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/vec/{z}/{x}/{y}?format=png&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
     attributions: attributions,
+    crossOrigin: 'anonymous',
+    maxZoom: 16,
   }),
   visible: false,
 })
-layers.unshift(osmLayer)
+layers.unshift(xtvecLayer)
+//星图影像注记
+const xtciaLayer = new TileLayer({
+  title: '星图影像注记',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/cia/{z}/{x}/{y}?format=png&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+  }),
+  visible: false,
+})
+layers.unshift(xtciaLayer)
+//星图影像图层
+const xtimgLayer = new TileLayer({
+  title: '星图影像',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/img/{z}/{x}/{y}?format=webp&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+    maxZoom: 18,
+  }),
+  visible: false,
+})
+layers.unshift(xtimgLayer)
+//星图地形
+const xtterLayer = new TileLayer({
+  title: '星图地形',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/ter/{z}/{x}/{y}?format=png&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+    maxZoom: 11,
+  }),
+  visible: false,
+})
+layers.unshift(xtterLayer)
+//OSM图层,国内网络无法加载
+// const osmLayer = new TileLayer({
+//   title: 'OSM地图',
+//   source: new OSM({
+//     attributions: attributions,
+//   }),
+//   visible: false,
+// })
+// layers.unshift(osmLayer)
 
 const wmsSource = new TileWMS({
   //不能设置为0，否则地图不展示。
   //ratio: 1,
   url: 'http://192.168.188.8:8086/geoserver/xhis/wms',
   params: {
-    LAYERS: 'xhis:map_water',
+    LAYERS: 'xhis:map_plan_gtdc',
     STYLES: '',
     VERSION: '1.3.0',
     //tiled: true,
   },
   serverType: 'geoserver',
   crossOrigin: 'anonymous',
-  projection: 'EPSG:4548',
+  projection: 'EPSG:4527',
 })
 
 const wmsLayer = new TileLayer({
@@ -442,12 +616,6 @@ function clickbh() {
   document.getElementById('layer-card').style.display = 'none'
   document.getElementById('draw-card').style.display = 'block'
 }
-
-//图层过滤
-// function filterNode(value, data) {
-//   if (!value) return true
-//   return data.label.includes(value)
-// }
 
 /* 图层控制 */
 function layerTreeClick(data, check) {
@@ -534,13 +702,22 @@ function initMap() {
           tipLabel: '鹰眼',
           layers: [
             new TileLayer({
-              source: new OSM(),
+              title: '星图地球矢量',
+              source: new XYZ({
+                url:
+                  'https://tiles1.geovisearth.com/base/v1/vec/{z}/{x}/{y}?format=png&tmsIds=w&token=' +
+                  xttoken,
+                //wrapX: false,
+                attributions: attributions,
+                crossOrigin: 'anonymous',
+              }),
             }),
           ],
         }), //鹰眼控件
         new control.Attribution({
           collapsed: false,
         }), //版权信息不可折叠
+        //new control.MousePosition({}), //鼠标位置坐标
       ]),
     interactions: defaultInteractions({
       // altShiftDragRotate: true, //是否需要 Alt-Shift-drag 旋转
@@ -608,7 +785,7 @@ function getClickInfo() {
           propertyTableData.value.length = 0
           popupInfo = JSON.parse(json)
           propertiesInfo = popupInfo.features[0].properties
-          tableFeatureName.value = popupInfo.features[0].properties.名称
+          tableFeatureName.value = popupInfo.features[0].properties.地类名称
           for (let [key, value] of Object.entries(propertiesInfo)) {
             newArray = { key: key, value: value }
             propertyTableData.value.push(newArray)
@@ -1308,7 +1485,10 @@ function basemapToggle(index) {
       tdvecLayer.setVisible(true)
       tdimgLayer.setVisible(false)
       tdterLayer.setVisible(false)
-      osmLayer.setVisible(false)
+      xtvecLayer.setVisible(false)
+      xtciaLayer.setVisible(false)
+      xtimgLayer.setVisible(false)
+      xtterLayer.setVisible(false)
       break
     case 2:
       basemapImage.value = '天地图影像'
@@ -1316,7 +1496,10 @@ function basemapToggle(index) {
       tdvecLayer.setVisible(false)
       tdimgLayer.setVisible(true)
       tdterLayer.setVisible(false)
-      osmLayer.setVisible(false)
+      xtvecLayer.setVisible(false)
+      xtciaLayer.setVisible(false)
+      xtimgLayer.setVisible(false)
+      xtterLayer.setVisible(false)
       break
     case 3:
       basemapImage.value = '天地图地形'
@@ -1324,18 +1507,49 @@ function basemapToggle(index) {
       tdvecLayer.setVisible(false)
       tdimgLayer.setVisible(false)
       tdterLayer.setVisible(true)
-      osmLayer.setVisible(false)
+      xtvecLayer.setVisible(false)
+      xtciaLayer.setVisible(false)
+      xtimgLayer.setVisible(false)
+      xtterLayer.setVisible(false)
       break
     case 4:
-      basemapImage.value = 'OSM地图'
+      basemapImage.value = '星图矢量'
       tdcvaLayer.setVisible(false)
       tdvecLayer.setVisible(false)
       tdimgLayer.setVisible(false)
       tdterLayer.setVisible(false)
-      osmLayer.setVisible(true)
+      xtvecLayer.setVisible(true)
+      xtciaLayer.setVisible(false)
+      xtimgLayer.setVisible(false)
+      xtterLayer.setVisible(false)
+      break
+    case 5:
+      basemapImage.value = '星图影像'
+      tdcvaLayer.setVisible(false)
+      tdvecLayer.setVisible(false)
+      tdimgLayer.setVisible(false)
+      tdterLayer.setVisible(false)
+      xtvecLayer.setVisible(false)
+      xtciaLayer.setVisible(true)
+      xtimgLayer.setVisible(true)
+      xtterLayer.setVisible(false)
+      break
+    case 6:
+      basemapImage.value = '星图地形'
+      tdcvaLayer.setVisible(false)
+      tdvecLayer.setVisible(false)
+      tdimgLayer.setVisible(false)
+      tdterLayer.setVisible(false)
+      xtvecLayer.setVisible(false)
+      xtciaLayer.setVisible(true)
+      xtimgLayer.setVisible(false)
+      xtterLayer.setVisible(true)
       break
   }
 }
+
+/* 地图图例 */
+const MaplegendImage = require(`@/assets/images/MapLegend/plan-gtdc.png`)
 
 onMounted(() => {
   initMap()

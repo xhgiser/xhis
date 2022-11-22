@@ -45,8 +45,8 @@
           class="filter-tree"
           show-checkbox
           node-key="id"
-          :default-expanded-keys="[1, 2, 3, 4]"
-          :default-checked-keys="[]"
+          :default-expanded-keys="defaultExpandedKeys"
+          :default-checked-keys="[defaultCheckedKeys]"
           :props="defaultProps"
           :filter-node-method="filterNode"
           @check-change="layerTreeClick"
@@ -69,12 +69,6 @@ import { watch } from '@vue/runtime-core'
 import { Search, CopyDocument, EditPen } from '@element-plus/icons-vue'
 
 const props = defineProps({
-  map: {
-    type: Object,
-  },
-  draw: {
-    type: Object,
-  },
   selecttc: {
     type: String,
   },
@@ -84,13 +78,12 @@ const props = defineProps({
   layersData: {
     type: Array,
   },
-  defaultProps: {
-    //type: Object,
+  defaultExpandedKeys: {
+    type: String,
   },
-  // drawRadio: {
-  //   type: String,
-  //   default: '',
-  // },
+  defaultCheckedKeys: {
+    type: String,
+  },
 })
 
 const emit = defineEmits([

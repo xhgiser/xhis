@@ -36,6 +36,9 @@
         <el-button type="primary" plain class="login_submit" @click="onLogin"
           >登录</el-button
         >
+        <el-button type="success" plain class="login_submit" @click="onRegister"
+          >注册</el-button
+        >
       </el-form>
     </div>
   </div>
@@ -96,6 +99,10 @@ const getLoginData = async () => {
     })
     router.push('/home')
   }
+}
+
+const onRegister = () => {
+  router.push('/register')
 }
 </script>
 
@@ -159,10 +166,15 @@ const getLoginData = async () => {
         height: 50px;
         border-radius: 20px;
         margin-top: 15px;
+        margin-left: 1px;
       }
 
       :deep(.el-input-group__prepend) {
         padding: 0 10px;
+      }
+
+      :deep(.el-input__inner) {
+        height: 50px;
       }
     }
   }
