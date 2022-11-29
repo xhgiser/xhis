@@ -101,6 +101,9 @@ dist
 .dynamodb/
 
 # TernJS port file
+.VSCodeCounter/
+#VSCodeCounter
+.VSCodeCounter
 <<<<<<< HEAD
 .tern-port
 =======
