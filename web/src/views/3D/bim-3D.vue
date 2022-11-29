@@ -80,6 +80,8 @@ function initCesium() {
   viewer.value.scene.globe.depthTestAgainstTerrain = true //开启地形深度检测 相对于地形表面绘制
   //viewer.scene.globe.depthTestAgainstTerrain = false // 始终在顶部绘制（默认）
 
+  viewer.value.scene.moon.show = false //月亮
+
   //天地图注记
   viewer.value.imageryLayers.addImageryProvider(
     new Cesium.WebMapTileServiceImageryProvider({
@@ -120,22 +122,8 @@ const dataOption = [
         label: '新汇大厦',
       },
       {
-        value: 'DongYing_DaoSanZha',
-        label: '稻三闸',
-      },
-      {
         value: 'DongYing_NanDiShuiKu',
         label: '南堤水库',
-      },
-    ],
-  },
-  {
-    value: 'JiNing',
-    label: '济宁市',
-    children: [
-      {
-        value: 'JiNing_SiShuiDaZha',
-        label: '泗水大闸',
       },
     ],
   },
@@ -156,24 +144,14 @@ const dataOption = [
 //所以将模型的经纬度查询后存放于数组
 const modelLngLatDeg = {
   DongYing_XinHuiDaSha: {
-    longitude: '118.6475',
-    latitude: '37.397',
-    height: 1000,
-  },
-  DongYing_DaoSanZha: {
-    longitude: '118.3314',
-    latitude: '37.423',
-    height: 1000,
+    longitude: '118.64863',
+    latitude: '37.39969',
+    height: 180.6,
   },
   DongYing_NanDiShuiKu: {
     longitude: '118.60290',
     latitude: '37.13032',
     height: 2254,
-  },
-  JiNing_SiShuiDaZha: {
-    longitude: '116.6977',
-    latitude: '35.14',
-    height: 1000,
   },
 }
 //折叠展开数据详细描述

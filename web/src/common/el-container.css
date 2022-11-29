@@ -23,7 +23,8 @@
 }
 
 .el-main {
-  padding: 0;
+  --el-main-padding: 0px;
+  padding: 0 !important;
   background-color: #9ea4aa;
 }
 

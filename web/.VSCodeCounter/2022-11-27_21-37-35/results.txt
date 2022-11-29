@@ -1,0 +1,144 @@
+Date : 2022-11-27 21:37:35
+Directory : d:\Dev\projects\xhis\web\src
+Total : 97 files,  12807 codes, 3651 comments, 1122 blanks, all 17580 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| Vue        |         87 |     11,192 |      3,382 |        903 |     15,477 |
+| JavaScript |          8 |      1,467 |        254 |        191 |      1,912 |
+| CSS        |          2 |        148 |         15 |         28 |        191 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                        | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                           |         97 |     12,807 |      3,651 |      1,122 |     17,580 |
+| api                                                                         |          1 |         10 |          9 |          4 |         23 |
+| common                                                                      |          2 |        148 |         15 |         28 |        191 |
+| components                                                                  |          8 |      1,413 |         54 |        112 |      1,579 |
+| components\Common                                                           |          5 |        796 |         21 |         57 |        874 |
+| components\Layout                                                           |          2 |        155 |         28 |         24 |        207 |
+| components\OpenlayersControls                                               |          1 |        462 |          5 |         31 |        498 |
+| config                                                                      |          1 |          0 |          0 |          1 |          1 |
+| router                                                                      |          1 |        394 |         30 |         12 |        436 |
+| store                                                                       |          1 |         13 |          0 |          2 |         15 |
+| test                                                                        |          1 |          5 |          1 |          3 |          9 |
+| utils                                                                       |          3 |      1,037 |        215 |        168 |      1,420 |
+| views                                                                       |         77 |      9,764 |      3,327 |        782 |     13,873 |
+| views\3D                                                                    |          8 |      1,596 |        278 |        131 |      2,005 |
+| views\admin                                                                 |          5 |        116 |          4 |         22 |        142 |
+| views\analyze                                                               |          6 |        139 |          5 |         28 |        172 |
+| views\apply                                                                 |          4 |         93 |          3 |         18 |        114 |
+| views\data                                                                  |         19 |        453 |         17 |         93 |        563 |
+| views\home                                                                  |          1 |         45 |          6 |          6 |         57 |
+| views\map                                                                   |          6 |      6,365 |      2,949 |        311 |      9,625 |
+| views\project                                                               |         26 |        619 |         25 |        128 |        772 |
+| views\user                                                                  |          2 |        338 |         40 |         45 |        423 |
++-----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                    | language   | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| d:\Dev\projects\xhis\web\src\App.vue                                        | Vue        |         10 |          0 |          6 |         16 |
+| d:\Dev\projects\xhis\web\src\api\index.js                                   | JavaScript |         10 |          9 |          4 |         23 |
+| d:\Dev\projects\xhis\web\src\common\base.css                                | CSS        |         47 |         15 |          7 |         69 |
+| d:\Dev\projects\xhis\web\src\common\el-container.css                        | CSS        |        101 |          0 |         21 |        122 |
+| d:\Dev\projects\xhis\web\src\components\Common\BasemapToggle.vue            | Vue        |        168 |          2 |         13 |        183 |
+| d:\Dev\projects\xhis\web\src\components\Common\LayerAndDraw.vue             | Vue        |        168 |          7 |         16 |        191 |
+| d:\Dev\projects\xhis\web\src\components\Common\MapLegend.vue                | Vue        |         23 |          1 |          4 |         28 |
+| d:\Dev\projects\xhis\web\src\components\Common\MapTool.vue                  | Vue        |        346 |         10 |         17 |        373 |
+| d:\Dev\projects\xhis\web\src\components\Common\PropertyPopup.vue            | Vue        |         91 |          1 |          7 |         99 |
+| d:\Dev\projects\xhis\web\src\components\Layout\Aside.vue                    | Vue        |         60 |         16 |         11 |         87 |
+| d:\Dev\projects\xhis\web\src\components\Layout\Header.vue                   | Vue        |         95 |         12 |         13 |        120 |
+| d:\Dev\projects\xhis\web\src\components\OpenlayersControls\BaseControl.vue  | Vue        |        462 |          5 |         31 |        498 |
+| d:\Dev\projects\xhis\web\src\config\mapconfig.js                            | JavaScript |          0 |          0 |          1 |          1 |
+| d:\Dev\projects\xhis\web\src\main.js                                        | JavaScript |         13 |          0 |          4 |         17 |
+| d:\Dev\projects\xhis\web\src\router\index.js                                | JavaScript |        394 |         30 |         12 |        436 |
+| d:\Dev\projects\xhis\web\src\store\index.js                                 | JavaScript |         13 |          0 |          2 |         15 |
+| d:\Dev\projects\xhis\web\src\test\test.vue                                  | Vue        |          5 |          1 |          3 |          9 |
+| d:\Dev\projects\xhis\web\src\utils\libgif.js                                | JavaScript |        788 |        143 |        134 |      1,065 |
+| d:\Dev\projects\xhis\web\src\utils\measure.js                               | JavaScript |        211 |         60 |         30 |        301 |
+| d:\Dev\projects\xhis\web\src\utils\request.js                               | JavaScript |         38 |         12 |          4 |         54 |
+| d:\Dev\projects\xhis\web\src\views\3D\3D.vue                                | Vue        |         30 |          1 |          3 |         34 |
+| d:\Dev\projects\xhis\web\src\views\3D\bim-3D.vue                            | Vue        |        205 |         58 |         20 |        283 |
+| d:\Dev\projects\xhis\web\src\views\3D\image-3D.vue                          | Vue        |        230 |         22 |         19 |        271 |
+| d:\Dev\projects\xhis\web\src\views\3D\manual-3D.vue                         | Vue        |          5 |          1 |          3 |          9 |
+| d:\Dev\projects\xhis\web\src\views\3D\pointcloud-3D.vue                     | Vue        |        196 |         22 |         18 |        236 |
+| d:\Dev\projects\xhis\web\src\views\3D\real-3D.vue                           | Vue        |        323 |         68 |         20 |        411 |
+| d:\Dev\projects\xhis\web\src\views\3D\terrain-3D.vue                        | Vue        |        228 |         30 |         19 |        277 |
+| d:\Dev\projects\xhis\web\src\views\3D\video-3D.vue                          | Vue        |        379 |         76 |         29 |        484 |
+| d:\Dev\projects\xhis\web\src\views\admin\admin.vue                          | Vue        |         28 |          0 |          3 |         31 |
+| d:\Dev\projects\xhis\web\src\views\admin\filesapply-admin.vue               | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\admin\home-admin.vue                     | Vue        |         22 |          1 |          4 |         27 |
+| d:\Dev\projects\xhis\web\src\views\admin\systemlog-admin.vue                | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\admin\user-admin.vue                     | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\analyze\analyze.vue                      | Vue        |         29 |          0 |          3 |         32 |
+| d:\Dev\projects\xhis\web\src\views\analyze\cut-analyze.vue                  | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\analyze\pothole-analyze.vue              | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\analyze\submerge-analyze.vue             | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\analyze\visualrange-analyze.vue          | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\analyze\watersurface-analyze.vue         | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\apply\apply.vue                          | Vue        |         27 |          0 |          3 |         30 |
+| d:\Dev\projects\xhis\web\src\views\apply\electronicfiles-apply.vue          | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\apply\paperfiles-apply.vue               | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\apply\record-apply.vue                   | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\data\aerialvideo-data.vue                | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\data\bim-data.vue                        | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\data\construction-data.vue               | Vue        |         22 |          0 |          5 |         27 |
+| d:\Dev\projects\xhis\web\src\views\data\data.vue                            | Vue        |         57 |          0 |          3 |         60 |
+| d:\Dev\projects\xhis\web\src\views\data\dom-data.vue                        | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\data\geology-data.vue                    | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\data\investigation-data.vue              | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\data\irrigat-data.vue                    | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\data\manual3D-data.vue                   | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\data\pipe-data.vue                       | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\data\plan-data.vue                       | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\data\pointcloud-data.vue                 | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\data\real3D-data.vue                     | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\data\river-data.vue                      | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\data\statistics-data.vue                 | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\data\survey-data.vue                     | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\data\terrain-data.vue                    | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\data\water-data.vue                      | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\data\waterengineer-data.vue              | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\home\home.vue                            | Vue        |         45 |          6 |          6 |         57 |
+| d:\Dev\projects\xhis\web\src\views\map\geology-map.vue                      | Vue        |      1,131 |        144 |         62 |      1,337 |
+| d:\Dev\projects\xhis\web\src\views\map\irrigation-map.vue                   | Vue        |      1,297 |      2,362 |         62 |      3,721 |
+| d:\Dev\projects\xhis\web\src\views\map\map.vue                              | Vue        |         29 |          0 |          3 |         32 |
+| d:\Dev\projects\xhis\web\src\views\map\pipe-map.vue                         | Vue        |      1,308 |        139 |         61 |      1,508 |
+| d:\Dev\projects\xhis\web\src\views\map\plan-map.vue                         | Vue        |      1,356 |        141 |         62 |      1,559 |
+| d:\Dev\projects\xhis\web\src\views\map\water-map.vue                        | Vue        |      1,244 |        163 |         61 |      1,468 |
+| d:\Dev\projects\xhis\web\src\views\project\boundarysurvey-project.vue       | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\brigeinvestigate-project.vue     | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\buildinginvestigate-project.vue  | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\channel-project.vue              | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\civil-project.vue                | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\construction-project.vue         | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\disastersinvestigate-project.vue | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\electromechanical-project.vue    | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\engineersurvey-project.vue       | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\farmwater-project.vue            | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\flood-project.vue                | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\geodeticsurvey-project.vue       | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\gis-project.vue                  | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\hydro-project.vue                | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\hydroinvestigate-project.vue     | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\lineinvestigate-project.vue      | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\oceansurvey-project.vue          | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\photosurvey-project.vue          | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\pipeinvestigate-project.vue      | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\port-project.vue                 | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\project.vue                      | Vue        |         69 |          0 |          3 |         72 |
+| d:\Dev\projects\xhis\web\src\views\project\riverbasin-project.vue           | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\underinvestigate-project.vue     | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\waterhub-project.vue             | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\watersoil-project.vue            | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\project\watersupply-project.vue          | Vue        |         22 |          1 |          5 |         28 |
+| d:\Dev\projects\xhis\web\src\views\user\login.vue                           | Vue        |        147 |         17 |         19 |        183 |
+| d:\Dev\projects\xhis\web\src\views\user\register.vue                        | Vue        |        191 |         23 |         26 |        240 |
+| Total                                                                       |            |     12,807 |      3,651 |      1,122 |     17,580 |
++-----------------------------------------------------------------------------+------------+------------+------------+------------+------------+
