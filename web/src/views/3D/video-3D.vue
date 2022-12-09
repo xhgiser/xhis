@@ -21,7 +21,6 @@
 import { onMounted, ref } from 'vue'
 import * as Cesium from 'cesium'
 
-import { VideoJsPlayer } from 'video.js'
 import { VideoPlayer } from '@videojs-player/vue'
 import 'video.js/dist/video-js.css'
 
@@ -441,11 +440,11 @@ onMounted(() => {
 
 <style scoped>
 @import 'cesium/widgets.css';
-
 #cesiumContainer {
-  height: 99.5%;
+  position: fixed;
+  height: 100%;
+  width: 100%;
 }
-
 :deep(.el-dialog) {
   left: 100px;
   top: 85px;

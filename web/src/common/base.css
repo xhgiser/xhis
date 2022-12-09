@@ -31,6 +31,7 @@ li {
 
 /* openlayers */
 #map {
+  position: fixed;
   height: 100%;
   width: 100%;
 }
@@ -47,17 +48,39 @@ li {
 /* 自定义openlayers地图组件 */
 /* 比例尺 */
 .ol-scale-bar{
-  bottom: 4px !important;
+  position: absolute !important;
+  transform: translate(1px) !important;
+  bottom: 75px !important;
+  
 }
 /* 鼠标坐标 */
 .ol-mouse-position{
-  top: 42px !important;
-  right: 8px !important;
+  position: fixed !important;
+  top: auto !important;
+  bottom: 9px !important;
+  right: 304px !important;
+  font-size: 6px;
+  color: rgb(111, 114, 114);
 }
 /* 鹰眼 */
 .ol-overviewmap {
-  left: 8px;
-  bottom: 31px !important;
+  position: absolute !important;
+  transform: translate(-6.2px) scale(0.9) !important;
+  bottom: 95px !important;
+}
+/* 版权 */
+.ol-attribution{
+  position: fixed !important;
+  right: 9px !important;
+  bottom: 5px !important;
+}
+/* 全屏 */
+.ol-full-screen{
+  position: fixed !important;
+  width: 24px;
+  height: 24px;
+  top: auto !important;
+  bottom: 5px !important;
 }
 
 /* Cesium */

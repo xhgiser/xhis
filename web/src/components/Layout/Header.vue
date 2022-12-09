@@ -4,7 +4,7 @@
       <h1 id="website-title">新汇集团工程信息化平台</h1>
     </el-col>
 
-    <el-col :span="12">
+    <el-col :span="14">
       <el-menu
         :default-active="activeIndex"
         class="el-menu-header"
@@ -24,7 +24,7 @@
       </el-menu>
     </el-col>
 
-    <el-col :span="5">
+    <el-col :span="3">
       <div class="header-user">
         <!-- 用户头像 -->
         <el-avatar :icon="UserFilled" />

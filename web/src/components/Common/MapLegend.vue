@@ -13,8 +13,8 @@ defineProps({ MaplegendImage: { type: String } })
 
 <style scoped>
 .map-legend {
-  position: absolute;
-  bottom: 70px;
+  position: fixed;
+  bottom: 40px;
   margin: auto 40%;
   transform: scale(4);
   opacity: 0.9;

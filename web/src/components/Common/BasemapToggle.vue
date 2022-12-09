@@ -120,10 +120,10 @@ function basemapToggle(index) {
 <style scoped>
 /*底图切换工具*/
 .basemap-toggle {
-  position: absolute;
+  position: fixed;
   text-align: center;
   right: 9px;
-  bottom: 41px;
+  bottom: 35px;
   opacity: 0.9;
   z-index: 9;
   cursor: pointer;

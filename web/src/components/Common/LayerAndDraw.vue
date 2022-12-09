@@ -41,7 +41,7 @@
       <el-scrollbar max-height="545px">
         <el-tree
           ref="treeRef"
-          :data="layersData"
+          :data="layersTree"
           class="filter-tree"
           show-checkbox
           node-key="id"
@@ -75,7 +75,7 @@ const props = defineProps({
   selectbh: {
     type: String,
   },
-  layersData: {
+  layersTree: {
     type: Array,
   },
   defaultExpandedKeys: {

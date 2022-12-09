@@ -376,7 +376,9 @@ onMounted(() => {
 <style scoped>
 @import 'cesium/widgets.css';
 #cesiumContainer {
-  height: 99.5%;
+  position: fixed;
+  height: 100%;
+  width: 100%;
 }
 
 #data-select-card {

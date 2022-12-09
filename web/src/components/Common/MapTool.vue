@@ -333,7 +333,7 @@ function closeUpload() {
 <style scoped>
 /*地图工具*/
 .map-tool {
-  position: absolute;
+  position: fixed;
   top: 79px !important;
   right: 9px;
   opacity: 0.9;
