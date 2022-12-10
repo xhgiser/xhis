@@ -86,30 +86,133 @@ const view = new View({
 })
 let layers = []
 
+//天地图token
+const tdtoken = '92abf9017d78cd71a3ae51d0874b6578'
+//星图token
+const xttoken =
+  'cec6f2d6a92d3cc95a61b873df5da5ffa1f4d2846fcf61ce384aa91aa0ca0141'
+//geoserver路径
+const geoserverUrl = 'http://192.168.188.8:8086'
+//版权
+const attributions =
+  '<a href="http://www.xinhuigs.com/" target="_blank">&copy;&nbsp;&nbsp;2022&nbsp;&nbsp;Xinhui&nbsp;Group&nbsp;&nbsp;&nbsp;All&nbsp;Rights&nbsp;Reserved.</a> '
+
 /* 底图 */
 //天地图注记图层
-const tdcvaLayer = MapConfig.tdcvaLayer
+const tdcvaLayer = new TileLayer({
+  title: '天地图注记',
+  source: new XYZ({
+    url:
+      'http://t5.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+  }),
+  visible: true,
+})
 layers.unshift(tdcvaLayer)
 //天地图矢量图层
-const tdvecLayer = MapConfig.tdvecLayer
+const tdvecLayer = new TileLayer({
+  title: '天地图矢量',
+  source: new XYZ({
+    url:
+      'http://t5.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+  }),
+  visible: true,
+})
 layers.unshift(tdvecLayer)
 //天地图影像图层
-const tdimgLayer = MapConfig.tdimgLayer
+const tdimgLayer = new TileLayer({
+  title: '天地图影像',
+  source: new XYZ({
+    url:
+      'http://t5.tianditu.com/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+    maxZoom: 18,
+  }),
+  visible: false,
+})
 layers.unshift(tdimgLayer)
 //天地图地形图层
-const tdterLayer = MapConfig.tdterLayer
+const tdterLayer = new TileLayer({
+  title: '天地图地形',
+  source: new XYZ({
+    url:
+      'http://t5.tianditu.com/DataServer?T=ter_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+  }),
+  visible: false,
+})
 layers.unshift(tdterLayer)
 //星图矢量图层
-const xtvecLayer = MapConfig.xtvecLayer
+const xtvecLayer = new TileLayer({
+  title: '星图矢量',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/vec/{z}/{x}/{y}?format=png&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+    maxZoom: 16,
+  }),
+  visible: false,
+})
 layers.unshift(xtvecLayer)
 //星图影像注记
-const xtciaLayer = MapConfig.xtciaLayer
+const xtciaLayer = new TileLayer({
+  title: '星图影像注记',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/cia/{z}/{x}/{y}?format=png&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+  }),
+  visible: false,
+})
 layers.unshift(xtciaLayer)
 //星图影像图层
-const xtimgLayer = MapConfig.xtimgLayer
+const xtimgLayer = new TileLayer({
+  title: '星图影像',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/img/{z}/{x}/{y}?format=webp&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+    maxZoom: 18,
+  }),
+  visible: false,
+})
 layers.unshift(xtimgLayer)
 //星图地形
-const xtterLayer = MapConfig.xtterLayer
+const xtterLayer = new TileLayer({
+  title: '星图地形',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/ter/{z}/{x}/{y}?format=png&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+    maxZoom: 11,
+  }),
+  visible: false,
+})
 layers.unshift(xtterLayer)
 
 /* 地图初始化 */
@@ -169,7 +272,7 @@ function initMap() {
     }),
   })
   //geoserver图层添加至地图
-  addLayersToMap()
+  //addLayersToMap()
 
   //属性查询
   getClickInfo()
@@ -195,14 +298,193 @@ function initMap() {
 }
 
 /* geoserver图层添加至地图 */
-const geoserverLayres = MapConfig.geologyLayers
-function addLayersToMap() {
-  geoserverLayres.forEach((layerObject, index) => {
-    if (layerObject) {
-      map.value.addLayer(layerObject.layer)
-    }
-  })
-}
+const geoserverLayres = [
+  {
+    value: 'xhis:geology_dzt',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:geology_dzt',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 0.9,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:geology_dzdc',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:geology_dzdc',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 0.9,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:geology_jx',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:geology_jx',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 0.9,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:geology_lspy',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:geology_lspy',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 0.9,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:geology_xbjx',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:geology_xbjx',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 0.9,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:geology_tws',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:geology_tws',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 0.9,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:geology_zk',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:geology_zk',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 0.9,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:geology_hsk',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:geology_hsk',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 0.9,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:geology_xblhy',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:geology_xblhy',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 0.9,
+      visible: false,
+    }),
+  },
+]
+geoserverLayres.forEach((layerObject, index) => {
+  if (layerObject) {
+    layers.push(layerObject.layer)
+  }
+})
 
 /* 鼠标经过geoserver图层变小手 */
 function pointermoveChange() {

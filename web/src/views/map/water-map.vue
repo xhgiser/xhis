@@ -50,7 +50,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, onUnmounted } from 'vue'
 import { Map, View } from 'ol'
 import * as control from 'ol/control'
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer'
@@ -86,30 +86,133 @@ const view = new View({
 })
 let layers = []
 
+//天地图token
+const tdtoken = '92abf9017d78cd71a3ae51d0874b6578'
+//星图token
+const xttoken =
+  'cec6f2d6a92d3cc95a61b873df5da5ffa1f4d2846fcf61ce384aa91aa0ca0141'
+//geoserver路径
+const geoserverUrl = 'http://192.168.188.8:8086'
+//版权
+const attributions =
+  '<a href="http://www.xinhuigs.com/" target="_blank">&copy;&nbsp;&nbsp;2022&nbsp;&nbsp;Xinhui&nbsp;Group&nbsp;&nbsp;&nbsp;All&nbsp;Rights&nbsp;Reserved.</a> '
+
 /* 底图 */
 //天地图注记图层
-const tdcvaLayer = MapConfig.tdcvaLayer
+const tdcvaLayer = new TileLayer({
+  title: '天地图注记',
+  source: new XYZ({
+    url:
+      'http://t5.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+  }),
+  visible: true,
+})
 layers.unshift(tdcvaLayer)
 //天地图矢量图层
-const tdvecLayer = MapConfig.tdvecLayer
+const tdvecLayer = new TileLayer({
+  title: '天地图矢量',
+  source: new XYZ({
+    url:
+      'http://t5.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+  }),
+  visible: true,
+})
 layers.unshift(tdvecLayer)
 //天地图影像图层
-const tdimgLayer = MapConfig.tdimgLayer
+const tdimgLayer = new TileLayer({
+  title: '天地图影像',
+  source: new XYZ({
+    url:
+      'http://t5.tianditu.com/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+    maxZoom: 18,
+  }),
+  visible: false,
+})
 layers.unshift(tdimgLayer)
 //天地图地形图层
-const tdterLayer = MapConfig.tdterLayer
+const tdterLayer = new TileLayer({
+  title: '天地图地形',
+  source: new XYZ({
+    url:
+      'http://t5.tianditu.com/DataServer?T=ter_w&x={x}&y={y}&l={z}&tk=' +
+      tdtoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+  }),
+  visible: false,
+})
 layers.unshift(tdterLayer)
 //星图矢量图层
-const xtvecLayer = MapConfig.xtvecLayer
+const xtvecLayer = new TileLayer({
+  title: '星图矢量',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/vec/{z}/{x}/{y}?format=png&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+    maxZoom: 16,
+  }),
+  visible: false,
+})
 layers.unshift(xtvecLayer)
 //星图影像注记
-const xtciaLayer = MapConfig.xtciaLayer
+const xtciaLayer = new TileLayer({
+  title: '星图影像注记',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/cia/{z}/{x}/{y}?format=png&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+  }),
+  visible: false,
+})
 layers.unshift(xtciaLayer)
 //星图影像图层
-const xtimgLayer = MapConfig.xtimgLayer
+const xtimgLayer = new TileLayer({
+  title: '星图影像',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/img/{z}/{x}/{y}?format=webp&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+    maxZoom: 18,
+  }),
+  visible: false,
+})
 layers.unshift(xtimgLayer)
 //星图地形
-const xtterLayer = MapConfig.xtterLayer
+const xtterLayer = new TileLayer({
+  title: '星图地形',
+  source: new XYZ({
+    url:
+      'https://tiles1.geovisearth.com/base/v1/ter/{z}/{x}/{y}?format=png&tmsIds=w&token=' +
+      xttoken,
+    //wrapX: false,
+    attributions: attributions,
+    crossOrigin: 'anonymous',
+    maxZoom: 11,
+  }),
+  visible: false,
+})
 layers.unshift(xtterLayer)
 
 /* 地图初始化 */
@@ -169,7 +272,7 @@ function initMap() {
     }),
   })
   //geoserver图层添加至地图
-  addLayersToMap()
+  //addLayersToMap()
 
   //属性查询
   getClickInfo()
@@ -195,14 +298,273 @@ function initMap() {
 }
 
 /* geoserver图层添加至地图 */
-const geoserverLayres = MapConfig.waterLayers
-function addLayersToMap() {
-  geoserverLayres.forEach((layerObject, index) => {
-    if (layerObject) {
-      map.value.addLayer(layerObject.layer)
-    }
-  })
-}
+const geoserverLayres = [
+  {
+    value: 'xhis:water_river',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:water_river',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 1,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:water_reservoir_large',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:water_reservoir_large',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 1,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:water_reservoir_small1',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:water_reservoir_small1',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 1,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:water_reservoir_small2',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:water_reservoir_small2',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 1,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:water_sluice_tide',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:water_sluice_tide',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 1,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:water_sluice_flood_diversion',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:water_sluice_flood_diversion',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 1,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:water_sluice_controlling',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:water_sluice_controlling',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 1,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:water_sluice_outlet',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:water_sluice_outlet',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 1,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:water_sluice_inlet',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:water_sluice_inlet',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 1,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:water_rubber_dam',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:water_rubber_dam',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 1,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:water_pump_station',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:water_pump_station',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 1,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:water_hydrology_station',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:water_hydrology_station',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 1,
+      visible: false,
+    }),
+  },
+  {
+    value: 'xhis:water_flood',
+    layer: new TileLayer({
+      source: new TileWMS({
+        url: geoserverUrl + '/geoserver/xhis/wms',
+        params: {
+          FORMAT: 'image/png',
+          VERSION: '1.1.1',
+          LAYERS: 'xhis:water_flood',
+          TILED: true,
+        },
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous',
+        projection: 'ESPG:4326',
+      }),
+      zIndex: 2,
+      opacity: 1,
+      visible: false,
+    }),
+  },
+]
+geoserverLayres.forEach((layerObject, index) => {
+  if (layerObject) {
+    layers.push(layerObject.layer)
+  }
+})
 
 /* 鼠标经过geoserver图层变小手 */
 function pointermoveChange() {
@@ -1342,5 +1704,18 @@ function basemapToggle(index) {
 onMounted(() => {
   initMap()
 })
+
+// onUnmounted(() => {
+//   map.value
+//     .getLayers()
+//     .getArray()
+//     .slice(0)
+//     .forEach((layer) => {
+//       if (layer) {
+//         map.value.removeLayer(layer)
+//       }
+//     })
+//   console.log(map.value.getLayers())
+// })
 </script>
 <style scoped></style>
